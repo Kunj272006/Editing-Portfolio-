@@ -1,0 +1,2374 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Editor — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Unbounded:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    [data-theme="dark"] {
+      --bg: #05050a;
+      --bg2: #0c0c14;
+      --bg3: #131320;
+      --glass: rgba(255, 255, 255, 0.04);
+      --glass2: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 255, 255, 0.07);
+      --border2: rgba(255, 255, 255, 0.13);
+      --accent: #c084fc;
+      --accent-r: 192, 132, 252;
+      --accent2: #f472b6;
+      --accent3: #818cf8;
+      --text: #f1f0ff;
+      --muted: rgba(241, 240, 255, 0.38);
+      --muted2: rgba(241, 240, 255, 0.62);
+      --nav-bg: rgba(5, 5, 10, 0.82);
+      --glow: rgba(192, 132, 252, 0.18);
+      --glow2: rgba(192, 132, 252, 0.07);
+      --shadow: rgba(0, 0, 0, 0.65);
+    }
+
+    [data-theme="light"] {
+      --bg: #faf9ff;
+      --bg2: #f0eeff;
+      --bg3: #e8e5ff;
+      --glass: rgba(0, 0, 0, 0.04);
+      --glass2: rgba(0, 0, 0, 0.07);
+      --border: rgba(0, 0, 0, 0.08);
+      --border2: rgba(0, 0, 0, 0.14);
+      --accent: #7c3aed;
+      --accent-r: 124, 58, 237;
+      --accent2: #db2777;
+      --accent3: #4f46e5;
+      --text: #1a1625;
+      --muted: rgba(26, 22, 37, 0.44);
+      --muted2: rgba(26, 22, 37, 0.68);
+      --nav-bg: rgba(250, 249, 255, 0.85);
+      --glow: rgba(124, 58, 237, 0.14);
+      --glow2: rgba(124, 58, 237, 0.05);
+      --shadow: rgba(0, 0, 0, 0.12);
+    }
+
+    [data-theme="neon"] {
+      --bg: #020208;
+      --bg2: #06050f;
+      --bg3: #0a091a;
+      --glass: rgba(168, 85, 247, 0.05);
+      --glass2: rgba(168, 85, 247, 0.1);
+      --border: rgba(168, 85, 247, 0.14);
+      --border2: rgba(168, 85, 247, 0.24);
+      --accent: #e879f9;
+      --accent-r: 232, 121, 249;
+      --accent2: #22d3ee;
+      --accent3: #a78bfa;
+      --text: #fdf4ff;
+      --muted: rgba(253, 244, 255, 0.38);
+      --muted2: rgba(253, 244, 255, 0.65);
+      --nav-bg: rgba(2, 2, 8, 0.88);
+      --glow: rgba(232, 121, 249, 0.22);
+      --glow2: rgba(232, 121, 249, 0.08);
+      --shadow: rgba(0, 0, 0, 0.8);
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+      cursor: none;
+      transition: background .5s, color .5s
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit
+    }
+
+    button {
+      font-family: inherit;
+      cursor: none;
+      border: none;
+      background: none
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: #fff
+    }
+
+    * {
+      cursor: none !important
+    }
+
+    #goo-svg {
+      position: fixed;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+      z-index: -1;
+      pointer-events: none
+    }
+
+    #goo-wrap {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 99999;
+      mix-blend-mode: difference;
+      filter: url(#goo);
+    }
+
+    .goo-circle {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #fff;
+      transform-origin: center center;
+      will-change: transform;
+    }
+
+    #goo-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      pointer-events: none;
+      z-index: 100000;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: normal;
+      transition: background .3s;
+    }
+
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: .22
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)' opacity='.03'/%3E%3C/svg%3E");
+      opacity: .35
+    }
+
+    #nav {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-70px);
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 7px 7px 7px 20px;
+      background: var(--nav-bg);
+      border: 1px solid var(--border2);
+      border-radius: 100px;
+      backdrop-filter: blur(32px) saturate(180%);
+      box-shadow: 0 16px 56px var(--shadow), inset 0 1px 0 rgba(255, 255, 255, .06), 0 0 0 1px rgba(var(--accent-r), .06);
+      animation: navDrop .9s .2s cubic-bezier(.16, 1, .3, 1) forwards;
+      transition: background .4s, border-color .4s, box-shadow .4s;
+    }
+
+    @keyframes navDrop {
+      to {
+        transform: translateX(-50%) translateY(0)
+      }
+    }
+
+    .nav-logo {
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 700;
+      font-size: .82rem;
+      letter-spacing: .06em;
+      color: var(--accent);
+      margin-right: 6px;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 3px
+    }
+
+    .nav-link {
+      position: relative;
+      overflow: hidden;
+      padding: 7px 13px;
+      border-radius: 40px;
+      font-size: .73rem;
+      font-weight: 500;
+      letter-spacing: .03em;
+      color: var(--muted2);
+      transition: color .3s;
+      border: 1px solid transparent;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(var(--accent-r), .18) 50%, transparent 100%);
+      width: 60%;
+      transform: translateX(-200%);
+      animation: shimmerSlide 3s ease-in-out infinite;
+      animation-play-state: paused;
+      border-radius: 40px;
+    }
+
+    .nav-link:hover::after {
+      animation-play-state: running
+    }
+
+    .nav-link:hover {
+      color: var(--accent);
+      border-color: rgba(var(--accent-r), .2);
+      background: rgba(var(--accent-r), .06)
+    }
+
+    .nav-link.active {
+      color: var(--accent)
+    }
+
+    @keyframes shimmerSlide {
+      0% {
+        transform: translateX(-200%)
+      }
+
+      100% {
+        transform: translateX(300%)
+      }
+    }
+
+    .theme-cluster {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      margin-left: 4px;
+      padding: 4px;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+    }
+
+    .tdot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      transition: transform .3s, border-color .3s
+    }
+
+    .tdot:hover {
+      transform: scale(1.3)
+    }
+
+    .tdot.on {
+      border-color: var(--text)
+    }
+
+    .tdot-d {
+      background: radial-gradient(circle at 35% 35%, #7c3aed, #1a1625)
+    }
+
+    .tdot-l {
+      background: radial-gradient(circle at 35% 35%, #a78bfa, #faf9ff)
+    }
+
+    .tdot-n {
+      background: conic-gradient(from 0deg, #e879f9, #22d3ee, #a78bfa, #e879f9)
+    }
+
+    #hero {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 120px 24px 80px;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(130px);
+      pointer-events: none;
+      animation: orbF var(--d, 18s) ease-in-out infinite;
+      animation-delay: var(--dl, 0s)
+    }
+
+    @keyframes orbF {
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1)
+      }
+
+      33% {
+        transform: translate(28px, -36px) scale(1.07)
+      }
+
+      66% {
+        transform: translate(-18px, 22px) scale(.95)
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 16px 5px 8px;
+      border: 1px solid var(--border2);
+      border-radius: 100px;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .62rem;
+      letter-spacing: .18em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: ruUp .8s .5s forwards;
+    }
+
+    .badge-ring {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(var(--accent-r), .15);
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .badge-ring::after {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: blip 1.6s infinite
+    }
+
+    @keyframes blip {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 1
+      }
+
+      50% {
+        transform: scale(1.6);
+        opacity: .35
+      }
+    }
+
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .66rem;
+      letter-spacing: .2em;
+      color: var(--muted2);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      opacity: 0;
+      animation: ruUp .8s .65s forwards
+    }
+
+    .hero-h1 {
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 900;
+      font-size: clamp(3.5rem, 12vw, 11rem);
+      line-height: .88;
+      letter-spacing: -.03em;
+      margin-bottom: 22px;
+      opacity: 0;
+      animation: ruUp .9s .78s forwards;
+    }
+
+    .hero-h1 .ol {
+      -webkit-text-stroke: 1.5px var(--text);
+      color: transparent
+    }
+
+    .hero-h1 .ac {
+      color: var(--accent)
+    }
+
+    .hero-h1:hover .ac {
+      animation: glitch .4s steps(2) infinite
+    }
+
+    @keyframes glitch {
+      0% {
+        text-shadow: 2px 0 var(--accent2), -2px 0 var(--accent3)
+      }
+
+      25% {
+        text-shadow: -2px 0 var(--accent2), 2px 0 var(--accent3)
+      }
+
+      75% {
+        text-shadow: 2px 0 var(--accent3), -2px 0 var(--accent2)
+      }
+
+      100% {
+        text-shadow: none
+      }
+    }
+
+    .hero-desc {
+      font-size: clamp(.88rem, 1.8vw, 1.08rem);
+      font-weight: 400;
+      color: var(--muted);
+      max-width: 440px;
+      line-height: 1.8;
+      margin: 0 auto 42px;
+      opacity: 0;
+      animation: ruUp .9s .9s forwards
+    }
+
+    .hero-desc strong {
+      color: var(--muted2);
+      font-weight: 600
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      opacity: 0;
+      animation: ruUp .9s 1.05s forwards
+    }
+
+    .shimmer-btn {
+      position: relative;
+      overflow: hidden;
+      padding: 13px 32px;
+      border-radius: 100px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .83rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      border: 1px solid rgba(var(--accent-r), .25);
+      background: rgba(var(--accent-r), .1);
+      color: var(--accent);
+      transition: transform .35s cubic-bezier(.16, 1, .3, 1), box-shadow .35s, background .3s;
+    }
+
+    .shimmer-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(var(--accent-r), .25) 50%, transparent 100%);
+      width: 55%;
+      transform: translateX(-200%);
+      animation: shimBefore 2.5s linear infinite;
+    }
+
+    @keyframes shimBefore {
+      to {
+        transform: translateX(350%)
+      }
+    }
+
+    .shimmer-btn.fill {
+      background: var(--accent);
+      color: #000;
+      border-color: transparent
+    }
+
+    .shimmer-btn.fill::before {
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .25), transparent)
+    }
+
+    .shimmer-btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 14px 40px var(--glow)
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0;
+      animation: ruUp 1s 1.4s forwards
+    }
+
+    .hero-scroll span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .58rem;
+      letter-spacing: .2em;
+      color: var(--muted)
+    }
+
+    .scroll-w {
+      width: 1px;
+      height: 44px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .scroll-w::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(var(--accent), transparent);
+      animation: swDown 2.2s ease-in-out infinite
+    }
+
+    @keyframes swDown {
+      0% {
+        transform: translateY(-100%)
+      }
+
+      100% {
+        transform: translateY(100%)
+      }
+    }
+
+    @keyframes ruUp {
+      from {
+        opacity: 0;
+        transform: translateY(38px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .pl {
+      position: absolute;
+      pointer-events: none;
+      font-size: var(--sz, 2.5rem);
+      opacity: var(--op, .07);
+      will-change: transform
+    }
+
+    .sec {
+      position: relative;
+      z-index: 2;
+      padding: 100px 24px
+    }
+
+    .sec-alt {
+      background: var(--bg2)
+    }
+
+    .wrap {
+      max-width: 1260px;
+      margin: 0 auto
+    }
+
+    .s-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .62rem;
+      letter-spacing: .24em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 12px
+    }
+
+    .s-label::before {
+      content: '';
+      width: 22px;
+      height: 1px;
+      background: var(--accent)
+    }
+
+    .s-label::after {
+      content: '';
+      flex: 1;
+      max-width: 70px;
+      height: 1px;
+      background: var(--border)
+    }
+
+    .s-title {
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 700;
+      font-size: clamp(2rem, 5vw, 4.2rem);
+      line-height: .92;
+      letter-spacing: -.03em;
+      margin-bottom: 52px
+    }
+
+    .s-title span {
+      color: var(--accent)
+    }
+
+    .rv {
+      opacity: 0;
+      transform: translateY(48px);
+      transition: opacity .9s cubic-bezier(.16, 1, .3, 1), transform .9s cubic-bezier(.16, 1, .3, 1)
+    }
+
+    .rv.in {
+      opacity: 1;
+      transform: none
+    }
+
+    .rv.d1 {
+      transition-delay: .1s
+    }
+
+    .rv.d2 {
+      transition-delay: .2s
+    }
+
+    .rv.d3 {
+      transition-delay: .3s
+    }
+
+    .rv.d4 {
+      transition-delay: .4s
+    }
+
+    /* ══ VIDEO CARDS ══ */
+    .video-row {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .spc {
+      position: relative;
+      flex: 0 0 260px;
+      border-radius: 20px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: transform .5s cubic-bezier(.16, 1, .3, 1), box-shadow .5s, border-color .4s;
+      will-change: transform;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .spc:hover {
+      transform: translateY(-10px) scale(1.018);
+      box-shadow: 0 32px 80px rgba(var(--accent-r), .15), 0 0 0 1px var(--accent);
+      border-color: var(--accent);
+    }
+
+    .spc.feat {
+      flex: 0 0 320px
+    }
+
+    .spc-spot {
+      position: absolute;
+      inset: -1px;
+      border-radius: 21px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .3s;
+      background: radial-gradient(350px circle at var(--sx, 50%) var(--sy, 50%), rgba(var(--accent-r), .18), rgba(var(--accent-r), .04), transparent);
+      z-index: 1;
+    }
+
+    .spc:hover .spc-spot {
+      opacity: 1
+    }
+
+    .spc-inner {
+      position: absolute;
+      inset: 1px;
+      border-radius: 19px;
+      background: var(--bg3);
+      z-index: 2
+    }
+
+    .spc-content {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      height: 100%
+    }
+
+    .spc-thumb {
+      position: relative;
+      width: 100%;
+      padding-top: 177.78%;
+      background: #000;
+      overflow: hidden;
+      flex-shrink: 0
+    }
+
+    /* Cover is always visible — clicking opens Drive */
+    .spc-cover {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      background: linear-gradient(160deg, #0d0a1a, #0a0814);
+      z-index: 4;
+      cursor: pointer !important;
+    }
+
+    .spc-cover-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: .48;
+      filter: saturate(.6);
+      transition: opacity .4s, filter .4s
+    }
+
+    .spc:hover .spc-cover-bg {
+      opacity: .75;
+      filter: saturate(1.1)
+    }
+
+    .spc-cover::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 55%;
+      background: linear-gradient(transparent, rgba(0, 0, 0, .7));
+      z-index: 1
+    }
+
+    .spc-play {
+      position: relative;
+      z-index: 2;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 10px rgba(var(--accent-r), .13);
+      transition: transform .35s, box-shadow .35s;
+    }
+
+    .spc-play svg {
+      fill: #000;
+      margin-left: 4px;
+      width: 20px;
+      height: 20px
+    }
+
+    .spc:hover .spc-play {
+      transform: scale(1.12);
+      box-shadow: 0 0 50px rgba(var(--accent-r), .45)
+    }
+
+    /* "Click to Watch" hint */
+    .spc-hover-hint {
+      position: relative;
+      z-index: 2;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .58rem;
+      letter-spacing: .14em;
+      color: rgba(255, 255, 255, .5);
+      text-transform: uppercase;
+    }
+
+    .spc-body {
+      padding: 16px 18px 18px;
+      flex: 1;
+      display: flex;
+      flex-direction: column
+    }
+
+    .spc-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(var(--accent-r), .25);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .6rem;
+      letter-spacing: .1em;
+      color: var(--accent);
+      background: rgba(var(--accent-r), .06);
+      margin-bottom: 10px;
+    }
+
+    .spc-tag svg {
+      width: 9px;
+      height: 9px;
+      fill: currentColor
+    }
+
+    .spc-name {
+      font-family: 'Unbounded', sans-serif;
+      font-size: .85rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+      letter-spacing: -.01em;
+      line-height: 1.25
+    }
+
+    .spc-desc {
+      font-size: .74rem;
+      color: var(--muted);
+      line-height: 1.6;
+      flex: 1
+    }
+
+    .spc-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border)
+    }
+
+    .spc-yr {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .58rem;
+      color: var(--muted)
+    }
+
+    .spc-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 13px;
+      border-radius: 20px;
+      background: var(--accent);
+      color: #000;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .7rem;
+      font-weight: 700;
+      transition: transform .3s, box-shadow .3s;
+    }
+
+    .spc-btn:hover {
+      transform: translateX(3px);
+      box-shadow: 0 6px 20px var(--glow)
+    }
+
+    .spc-btn svg {
+      width: 11px;
+      height: 11px;
+      stroke: #000;
+      fill: none;
+      stroke-width: 2.2;
+      stroke-linecap: round
+    }
+
+    /* CLIENT SECTION */
+    .client-card {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+      backdrop-filter: blur(14px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      transition: border-color .4s, box-shadow .4s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    @media(max-width:768px) {
+      .client-card {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .client-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 60px var(--glow2), 0 20px 60px var(--shadow)
+    }
+
+    .cl-left {
+      padding: 52px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center
+    }
+
+    @media(max-width:768px) {
+      .cl-left {
+        padding: 36px 28px
+      }
+    }
+
+    .cl-eye {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .62rem;
+      letter-spacing: .2em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .cl-h2 {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: .93;
+      letter-spacing: -.03em;
+      margin-bottom: 18px
+    }
+
+    .cl-h2 span {
+      color: var(--accent)
+    }
+
+    .cl-desc {
+      font-size: .86rem;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 360px;
+      margin-bottom: 28px
+    }
+
+    .cl-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 26px;
+      border-radius: 12px;
+      background: var(--accent);
+      color: #000;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .84rem;
+      font-weight: 700;
+      width: fit-content;
+      position: relative;
+      overflow: hidden;
+      transition: transform .35s, box-shadow .35s;
+    }
+
+    .cl-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .28), transparent);
+      width: 55%;
+      transform: translateX(-200%);
+      animation: shimBefore 2.6s linear infinite
+    }
+
+    .cl-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px var(--glow)
+    }
+
+    .cl-cta svg {
+      width: 16px;
+      height: 16px;
+      stroke: #000;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      flex-shrink: 0
+    }
+
+    .cl-right {
+      padding: 32px;
+      background: var(--bg3);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      justify-content: center
+    }
+
+    @media(max-width:768px) {
+      .cl-right {
+        border-left: none;
+        border-top: 1px solid var(--border);
+        padding: 28px
+      }
+    }
+
+    .cl-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px
+    }
+
+    .cl-stat {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 16px;
+      transition: border-color .3s, transform .3s;
+      text-align: center
+    }
+
+    .cl-stat:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px)
+    }
+
+    .cl-num {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .cl-lbl {
+      font-size: .72rem;
+      color: var(--muted);
+      letter-spacing: .05em
+    }
+
+    .drive-prev {
+      background: var(--glass2);
+      border: 1px solid var(--border2);
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: border-color .3s, background .3s;
+    }
+
+    .drive-prev:hover {
+      border-color: var(--accent)
+    }
+
+    .drive-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0
+    }
+
+    .drive-icon svg {
+      width: 22px;
+      height: 22px
+    }
+
+    .drive-info {
+      flex: 1
+    }
+
+    .drive-title {
+      font-size: .83rem;
+      font-weight: 600;
+      margin-bottom: 2px
+    }
+
+    .drive-sub {
+      font-size: .7rem;
+      color: var(--muted)
+    }
+
+    .drive-arr {
+      color: var(--accent);
+      font-size: 1.1rem;
+      transition: transform .3s
+    }
+
+    .drive-prev:hover .drive-arr {
+      transform: translateX(4px)
+    }
+
+    /* JOURNEY */
+    .journey-grid {
+      display: grid;
+      grid-template-columns: 1fr 60px 1fr;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      overflow: hidden;
+      background: var(--glass);
+      backdrop-filter: blur(16px);
+    }
+
+    @media(max-width:700px) {
+      .journey-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr auto 1fr
+      }
+    }
+
+    .j-panel {
+      overflow: hidden
+    }
+
+    .j-head {
+      padding: 11px 18px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .62rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .j-head.th {
+      background: rgba(255, 255, 255, .04);
+      color: var(--muted2)
+    }
+
+    .j-head.nw {
+      background: var(--accent);
+      color: #000
+    }
+
+    .j-head svg {
+      width: 13px;
+      height: 13px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2
+    }
+
+    .j-vid {
+      width: 100%;
+      padding-top: 56.25%;
+      position: relative;
+      background: #000
+    }
+
+    .j-vid .spc-cover {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .j-desc {
+      padding: 16px 18px;
+      font-size: .78rem;
+      color: var(--muted);
+      line-height: 1.7;
+      border-top: 1px solid var(--border)
+    }
+
+    .j-desc strong {
+      color: var(--text)
+    }
+
+    .j-mid {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg3);
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      flex-direction: column;
+      gap: 10px
+    }
+
+    @media(max-width:700px) {
+      .j-mid {
+        flex-direction: row;
+        border: none;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        padding: 12px
+      }
+    }
+
+    .j-arr {
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: var(--accent)
+    }
+
+    .j-pl {
+      width: 2px;
+      height: 32px;
+      background: linear-gradient(var(--accent), transparent);
+      animation: jpl 2s infinite
+    }
+
+    @keyframes jpl {
+
+      0%,
+      100% {
+        opacity: .3
+      }
+
+      50% {
+        opacity: 1
+      }
+    }
+
+    @media(max-width:700px) {
+      .j-pl {
+        width: 32px;
+        height: 2px;
+        background: linear-gradient(to right, var(--accent), transparent)
+      }
+    }
+
+    /* SKILLS */
+    .sk-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 48px
+    }
+
+    @media(max-width:768px) {
+      .sk-grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .sk-card {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 26px;
+      backdrop-filter: blur(16px);
+      position: relative;
+      overflow: hidden;
+      transition: transform .5s cubic-bezier(.16, 1, .3, 1), box-shadow .5s, border-color .4s;
+    }
+
+    .sk-spot {
+      position: absolute;
+      inset: -1px;
+      border-radius: 21px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .3s;
+      background: radial-gradient(280px circle at var(--sx, 50%) var(--sy, 50%), rgba(var(--accent-r), .15), transparent);
+      z-index: 0
+    }
+
+    .sk-card:hover .sk-spot {
+      opacity: 1
+    }
+
+    .sk-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 20px 60px var(--shadow);
+      border-color: var(--accent)
+    }
+
+    .sk-card * {
+      position: relative;
+      z-index: 1
+    }
+
+    .sk-icon-box {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--glass2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      transition: border-color .3s, background .3s;
+      overflow: hidden;
+    }
+
+    .sk-card:hover .sk-icon-box {
+      border-color: var(--accent);
+      background: rgba(var(--accent-r), .1)
+    }
+
+    .sk-icon-box svg {
+      width: 26px;
+      height: 26px
+    }
+
+    .sk-name {
+      font-family: 'Unbounded', sans-serif;
+      font-size: .9rem;
+      font-weight: 600;
+      margin-bottom: 7px
+    }
+
+    .sk-desc {
+      font-size: .76rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 18px
+    }
+
+    .sk-bar-h {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .59rem;
+      color: var(--muted);
+      margin-bottom: 7px
+    }
+
+    .sk-bar-h em {
+      color: var(--accent);
+      font-style: normal
+    }
+
+    .sk-bar {
+      height: 2px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 14px
+    }
+
+    .sk-fill {
+      height: 100%;
+      background: linear-gradient(to right, var(--accent3), var(--accent));
+      width: 0;
+      border-radius: 2px;
+      transition: width 1.8s cubic-bezier(.16, 1, .3, 1)
+    }
+
+    .sk-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px
+    }
+
+    .sk-tag {
+      padding: 2px 9px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .58rem;
+      color: var(--muted);
+      background: var(--glass);
+      transition: all .3s
+    }
+
+    .sk-card:hover .sk-tag {
+      border-color: rgba(var(--accent-r), .3);
+      color: var(--accent)
+    }
+
+    .sk-p {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--accent);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .4s;
+      animation: skfloat var(--d, 6s) ease-in-out infinite;
+      animation-delay: var(--dl, 0s)
+    }
+
+    .sk-card:hover .sk-p {
+      opacity: .2
+    }
+
+    @keyframes skfloat {
+
+      0%,
+      100% {
+        transform: translate(0, 0)
+      }
+
+      50% {
+        transform: translate(var(--tx, 10px), var(--ty, -18px))
+      }
+    }
+
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      background: var(--glass);
+      backdrop-filter: blur(16px)
+    }
+
+    @media(max-width:600px) {
+      .stats-strip {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    .sstat {
+      padding: 26px 18px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+      transition: background .3s
+    }
+
+    .sstat:last-child {
+      border-right: none
+    }
+
+    .sstat:hover {
+      background: var(--glass2)
+    }
+
+    .sstat-n {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 4px;
+      display: block
+    }
+
+    .sstat-l {
+      font-size: .72rem;
+      color: var(--muted);
+      letter-spacing: .05em
+    }
+
+    /* CONTACT */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start
+    }
+
+    @media(max-width:768px) {
+      .contact-grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .ct-left p {
+      font-size: .86rem;
+      color: var(--muted);
+      line-height: 1.82;
+      max-width: 400px;
+      margin-bottom: 30px
+    }
+
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px
+    }
+
+    .soc {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--glass);
+      font-size: .78rem;
+      color: var(--muted);
+      backdrop-filter: blur(8px);
+      transition: all .3s;
+    }
+
+    .soc svg {
+      width: 17px;
+      height: 17px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0
+    }
+
+    .soc.soc-d svg {
+      stroke: none;
+      fill: var(--accent)
+    }
+
+    .soc:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--glow2)
+    }
+
+    .cf {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 34px 30px;
+      backdrop-filter: blur(16px)
+    }
+
+    .cf-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 22px
+    }
+
+    .cf-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px
+    }
+
+    @media(max-width:460px) {
+      .cf-row {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .cfg {
+      margin-bottom: 16px
+    }
+
+    .cfg label {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .59rem;
+      letter-spacing: .15em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 6px
+    }
+
+    .cfg input,
+    .cfg textarea {
+      width: 100%;
+      padding: 11px 14px;
+      background: var(--glass2);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .85rem;
+      outline: none;
+      resize: none;
+      transition: border-color .3s, box-shadow .3s
+    }
+
+    .cfg input:focus,
+    .cfg textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--glow2)
+    }
+
+    .cfg textarea {
+      height: 100px
+    }
+
+    .cf-sub {
+      width: 100%;
+      padding: 12px;
+      background: var(--accent);
+      color: #000;
+      border-radius: 10px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      transition: all .3s;
+      margin-top: 4px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cf-sub::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .25), transparent);
+      width: 55%;
+      transform: translateX(-200%);
+      animation: shimBefore 2.8s linear infinite
+    }
+
+    .cf-sub:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px var(--glow)
+    }
+
+    .divl {
+      height: 1px;
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(to right, transparent, var(--border), transparent)
+    }
+
+    footer {
+      position: relative;
+      z-index: 2;
+      border-top: 1px solid var(--border);
+      padding: 50px 24px;
+      text-align: center
+    }
+
+    .f-logo {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+      letter-spacing: -.03em
+    }
+
+    .f-sub {
+      font-size: .76rem;
+      color: var(--muted);
+      margin-bottom: 28px
+    }
+
+    .f-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 22px;
+      margin-bottom: 22px
+    }
+
+    .f-links a {
+      font-size: .76rem;
+      color: var(--muted);
+      transition: color .3s
+    }
+
+    .f-links a:hover {
+      color: var(--accent)
+    }
+
+    .f-copy {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .59rem;
+      color: var(--muted);
+      letter-spacing: .1em
+    }
+  </style>
+</head>
+
+<body>
+
+  <svg id="goo-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 35 -15" result="goomap" />
+        <feComposite in="SourceGraphic" in2="goomap" operator="atop" />
+      </filter>
+    </defs>
+  </svg>
+
+  <div id="goo-wrap"></div>
+  <div id="goo-dot"></div>
+
+  <canvas id="bg-canvas"></canvas>
+
+  <nav id="nav">
+    <div class="nav-logo">✦ VE</div>
+    <div class="nav-links">
+      <a href="#work" class="nav-link">Work</a>
+      <a href="#clients" class="nav-link">Clients</a>
+      <a href="#journey" class="nav-link">Journey</a>
+      <a href="#skills" class="nav-link">Skills</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+    <div class="theme-cluster">
+      <button class="tdot tdot-d on" onclick="setTheme('dark',0)" title="Dark"></button>
+      <button class="tdot tdot-l" onclick="setTheme('light',1)" title="Light"></button>
+      <button class="tdot tdot-n" onclick="setTheme('neon',2)" title="Neon"></button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="orb"
+      style="width:650px;height:650px;background:var(--accent);opacity:.05;top:-180px;right:-130px;--d:22s"></div>
+    <div class="orb"
+      style="width:420px;height:420px;background:var(--accent2);opacity:.06;bottom:-100px;left:-80px;--d:16s;--dl:-6s">
+    </div>
+    <div class="orb"
+      style="width:280px;height:280px;background:var(--accent3);opacity:.05;top:40%;left:20%;--d:13s;--dl:-9s"></div>
+    <div class="pl" data-speed=".04" style="top:15%;left:7%;--sz:3.5rem;--op:.09">🎬</div>
+    <div class="pl" data-speed=".07" style="top:24%;right:9%;--sz:2rem;--op:.07">✂️</div>
+    <div class="pl" data-speed=".03" style="bottom:22%;left:11%;--sz:2rem;--op:.07">🎞️</div>
+    <div class="pl" data-speed=".06" style="bottom:28%;right:7%;--sz:2.6rem;--op:.08">🎧</div>
+    <div class="pl" data-speed=".05" style="top:58%;left:4%;--sz:1.8rem;--op:.06">🎨</div>
+
+    <div style="position:relative;z-index:1">
+      <div class="hero-badge">
+        <div class="badge-ring"></div>Open for Projects
+      </div>
+      <p class="hero-eyebrow">Professional Video Editor · DaVinci Resolve</p>
+      <h1 class="hero-h1">
+        CUT.<br>
+        <span class="ol">GRADE.</span><br>
+        <span class="ac">DELIVER.</span>
+      </h1>
+      <p class="hero-desc">
+        <strong>30+ videos edited.</strong> Cinematic color grading, precise sound design &amp; storytelling that makes
+        viewers stop scrolling — all crafted in DaVinci Resolve.
+      </p>
+      <div class="hero-btns">
+        <a href="#work" class="shimmer-btn fill">View Best Work</a>
+        <a href="#contact" class="shimmer-btn">Hire Me →</a>
+      </div>
+    </div>
+    <div class="hero-scroll"><span>Scroll</span>
+      <div class="scroll-w"></div>
+    </div>
+  </section>
+
+  <div class="divl"></div>
+
+  <!-- BEST WORK — clicking cover opens Drive -->
+  <section class="sec" id="work">
+    <div class="wrap">
+      <p class="s-label rv">Featured Work</p>
+      <h2 class="s-title rv d1">Best <span>Videos</span></h2>
+
+      <div class="video-row">
+
+        <!-- BEST VIDEO -->
+        <div class="spc feat rv d1" onmousemove="spotMove(this,event)">
+          <div class="spc-spot"></div>
+          <div class="spc-inner"></div>
+          <div class="spc-content">
+            <div class="spc-thumb">
+              <!-- Clicking anywhere on the cover opens the Drive link -->
+              <div class="spc-cover"
+                onclick="window.open('https://drive.google.com/file/d/1sL9VJRYZBTjw00IUAK7mYcmlHH0j32F9/view','_blank')">
+                <div class="spc-cover-bg"
+                  style="background-image:url('https://drive.google.com/thumbnail?id=1sL9VJRYZBTjw00IUAK7mYcmlHH0j32F9&sz=w800')">
+                </div>
+                <div class="spc-play"><svg viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg></div>
+              </div>
+            </div>
+            <div class="spc-body">
+              <div class="spc-tag"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>Best Work</div>
+              <div class="spc-name">Signature Cinematic Edit</div>
+              <div class="spc-desc">Peak craft — professional color grading, precision beat-sync cuts &amp; layered
+                sound design built entirely in DaVinci Resolve.</div>
+              <div class="spc-foot">
+                <span class="spc-yr"></span>
+                <a class="spc-btn" href="https://drive.google.com/file/d/1sL9VJRYZBTjw00IUAK7mYcmlHH0j32F9/view"
+                  target="_blank">Drive<svg viewBox="0 0 24 24">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PERSONAL PROJECT -->
+        <div class="spc rv d2" onmousemove="spotMove(this,event)">
+          <div class="spc-spot"></div>
+          <div class="spc-inner"></div>
+          <div class="spc-content">
+            <div class="spc-thumb">
+              <div class="spc-cover"
+                onclick="window.open('https://drive.google.com/file/d/1I2wN5_lKClasCv6PXmoEsizwdGOu933q/view?usp=drive_link','_blank')">
+                <div class="spc-cover-bg"
+                  style="background-image:url('https://drive.google.com/thumbnail?id=1I2wN5_lKClasCv6PXmoEsizwdGOu933q&sz=w600')">
+                </div>
+                <div class="spc-play"><svg viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg></div>
+                <span class="spc-hover-hint"></span>
+              </div>
+            </div>
+            <div class="spc-body">
+              <div class="spc-tag">Personal Project</div>
+              <div class="spc-name">Personal Creative Edit</div>
+              <div class="spc-desc">Self-directed storytelling — mood-driven color grades, layered audio &amp; cinematic
+                pacing from concept to final cut.</div>
+              <div class="spc-foot">
+                <a class="spc-btn"
+                  href="https://drive.google.com/file/d/1I2wN5_lKClasCv6PXmoEsizwdGOu933q/view?usp=drive_link"
+                  target="_blank">Drive<svg viewBox="0 0 24 24">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FIRST VIDEO -->
+        <div class="spc rv d3" onmousemove="spotMove(this,event)">
+          <div class="spc-spot"></div>
+          <div class="spc-inner"></div>
+          <div class="spc-content">
+            <div class="spc-thumb">
+              <div class="spc-cover"
+                onclick="window.open('https://drive.google.com/file/d/1FtW_ZKRnTyXho_AHm-tnbgCAHmlzFUq9/view','_blank')">
+                <div class="spc-cover-bg"
+                  style="background-image:url('https://drive.google.com/thumbnail?id=1FtW_ZKRnTyXho_AHm-tnbgCAHmlzFUq9&sz=w600')">
+                </div>
+                <div class="spc-play"><svg viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg></div>
+              </div>
+            </div>
+            <div class="spc-body">
+              <div class="spc-tag">First Edit</div>
+              <div class="spc-name">Where It All Started</div>
+              <div class="spc-desc">The very first video. Raw passion before technique — the spark that started
+                everything.</div>
+              <div class="spc-foot">
+                <span class="spc-yr">
+                </span>
+                <a class="spc-btn" href="https://drive.google.com/file/d/1FtW_ZKRnTyXho_AHm-tnbgCAHmlzFUq9/view"
+                  target="_blank">Drive<svg viewBox="0 0 24 24">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divl"></div>
+
+  <!-- CLIENT WORK -->
+  <section class="sec sec-alt" id="clients">
+    <div class="wrap">
+      <p class="s-label rv">Professional Work</p>
+      <h2 class="s-title rv d1">Client <span>Work</span></h2>
+
+      <a href="https://drive.google.com/drive/folders/13cY2lRt1t-e1xMDHjpO4_e0MmaS6haTs?usp=drive_link" target="_blank"
+        class="client-card rv d2" style="display:grid;">
+        <div class="cl-left">
+          <div class="cl-eye">
+            <svg viewBox="0 0 87.3 78" style="width:14px;height:14px;flex-shrink:0">
+              <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z"
+                fill="#0066da" />
+              <path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0-1.2 4.5h27.5z"
+                fill="#00ac47" />
+              <path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.5l5.85 11.5z"
+                fill="#ea4335" />
+              <path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d" />
+              <path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc" />
+              <path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z"
+                fill="#ffba00" />
+            </svg>
+            Client Portfolio · Click to Open Drive
+          </div>
+          <h2 class="cl-h2">Real Projects,<br><span>Real Results</span></h2>
+          <p class="cl-desc">Professional edits delivered to real clients — beat-synced cuts, branded palettes, and
+            dynamic transitions tailored to each unique vision. Every frame intentional, every second impactful.</p>
+          <div class="cl-cta"
+            onclick="event.stopPropagation();window.open('https://drive.google.com/drive/folders/13cY2lRt1t-e1xMDHjpO4_e0MmaS6haTs?usp=drive_link','_blank')">
+            <svg viewBox="0 0 87.3 78" style="width:18px;height:18px">
+              <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z"
+                fill="#0066da" />
+              <path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0-1.2 4.5h27.5z"
+                fill="#00ac47" />
+              <path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.5l5.85 11.5z"
+                fill="#ea4335" />
+              <path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d" />
+              <path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc" />
+              <path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z"
+                fill="#ffba00" />
+            </svg>
+            Open Client Drive Folder
+            <svg viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </div>
+        </div>
+        <div class="cl-right">
+          <div class="cl-stats">
+            <div class="cl-stat"><span class="cl-num" data-count="30" data-suffix="+">0+</span>
+              <div class="cl-lbl">Videos Delivered</div>
+            </div>
+            <div class="cl-stat"><span class="cl-num" data-count="100" data-suffix="%">0%</span>
+              <div class="cl-lbl">Satisfaction Rate</div>
+            </div>
+            <div class="cl-stat"><span class="cl-num" data-count="6" data-suffix=" Months+">0+</span>
+              <div class="cl-lbl">Experience</div>
+            </div>
+            <div class="cl-stat"><span class="cl-num" data-count="3" data-suffix="">0</span>
+              <div class="cl-lbl">Core Skills</div>
+            </div>
+          </div>
+          <div class="drive-prev">
+            <div class="drive-icon">
+              <svg viewBox="0 0 87.3 78" style="width:22px;height:22px">
+                <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z"
+                  fill="#0066da" />
+                <path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0-1.2 4.5h27.5z"
+                  fill="#00ac47" />
+                <path
+                  d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.5l5.85 11.5z"
+                  fill="#ea4335" />
+                <path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d" />
+                <path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z"
+                  fill="#2684fc" />
+                <path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z"
+                  fill="#ffba00" />
+              </svg>
+            </div>
+            <div class="drive-info">
+              <div class="drive-title">Client Work Folder</div>
+              <div class="drive-sub">Google Drive · Click to browse</div>
+            </div>
+            <div class="drive-arr">→</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <div class="divl"></div>
+
+  <!-- JOURNEY — click play opens Drive -->
+  <section class="sec" id="journey">
+    <div class="wrap">
+      <p class="s-label rv">The Evolution</p>
+      <h2 class="s-title rv d1">Then <span>→</span> Now</h2>
+      <p class="rv d2" style="color:var(--muted);max-width:480px;font-size:.86rem;line-height:1.8;margin-bottom:44px">
+        One screen. Two videos. Watch the transformation from raw first cut to polished cinematic work — side by side.
+      </p>
+
+      <div class="journey-grid rv d2">
+        <div class="j-panel">
+          <div class="j-head th"><svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 8v4l3 3" />
+            </svg>First Video — The Beginning</div>
+          <div class="j-vid">
+            <div class="spc-cover"
+              onclick="window.open('https://drive.google.com/file/d/1FtW_ZKRnTyXho_AHm-tnbgCAHmlzFUq9/view','_blank')">
+              <div class="spc-cover-bg"
+                style="background-image:url('https://drive.google.com/thumbnail?id=1FtW_ZKRnTyXho_AHm-tnbgCAHmlzFUq9&sz=w500')">
+              </div>
+              <div class="spc-play"><svg viewBox="0 0 24 24" fill="#000">
+                  <path d="M8 5v14l11-7z" />
+                </svg></div>
+            </div>
+          </div>
+          <div class="j-desc"><strong>The very first edit.</strong> Raw, unrefined, but full of passion. This is where
+            the obsession with visual storytelling began.</div>
+        </div>
+        <div class="j-mid">
+          <div class="j-pl"></div>
+          <div class="j-arr">→</div>
+          <div class="j-pl" style="background:linear-gradient(transparent,var(--accent))"></div>
+        </div>
+        <div class="j-panel">
+          <div class="j-head nw"><svg viewBox="0 0 24 24">
+              <polygon
+                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>Best Work — Right Now</div>
+          <div class="j-vid">
+            <div class="spc-cover"
+              onclick="window.open('https://drive.google.com/file/d/1sL9VJRYZBTjw00IUAK7mYcmlHH0j32F9/view','_blank')">
+              <div class="spc-cover-bg"
+                style="background-image:url('https://drive.google.com/thumbnail?id=1sL9VJRYZBTjw00IUAK7mYcmlHH0j32F9&sz=w500')">
+              </div>
+              <div class="spc-play" style="background:var(--accent2)"><svg viewBox="0 0 24 24" fill="#fff">
+                  <path d="M8 5v14l11-7z" />
+                </svg></div>
+            </div>
+          </div>
+          <div class="j-desc"><strong>Months of relentless practice.</strong> Professional color grading, layered sound
+            design &amp; cinematic pacing. The best work yet — and just the beginning.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divl"></div>
+
+  <!-- SKILLS -->
+  <section class="sec sec-alt" id="skills">
+    <div class="wrap">
+      <p class="s-label rv">Capabilities</p>
+      <h2 class="s-title rv d1">My <span>Skills</span></h2>
+
+      <div class="sk-grid">
+        <div class="sk-card rv" onmousemove="skSpot(this,event)">
+          <div class="sk-spot"></div>
+          <div class="sk-p" style="width:5px;height:5px;top:18%;left:82%;--d:7s;--dl:0s;--tx:-18px;--ty:-22px"></div>
+          <div class="sk-p" style="width:3px;height:3px;top:65%;left:88%;--d:9s;--dl:-3s;--tx:-12px;--ty:-16px"></div>
+          <div class="sk-icon-box">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="var(--accent)">
+              <circle cx="50" cy="50" r="48" fill="none" stroke="var(--accent)" stroke-width="4" />
+              <circle cx="50" cy="50" r="32" fill="none" stroke="var(--accent)" stroke-width="3" opacity=".5" />
+              <circle cx="50" cy="50" r="16" fill="var(--accent)" opacity=".9" />
+              <circle cx="50" cy="50" r="6" fill="var(--bg)" />
+              <line x1="50" y1="2" x2="50" y2="20" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" />
+              <line x1="50" y1="80" x2="50" y2="98" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" />
+              <line x1="2" y1="50" x2="20" y2="50" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" />
+              <line x1="80" y1="50" x2="98" y2="50" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="sk-name">DaVinci Resolve</div>
+          <div class="sk-desc">Full professional NLE — timeline management, multi-track editing, Fusion VFX, and the
+            Deliver page for polished exports. My primary tool for every project.</div>
+          <div class="sk-bar-h">Proficiency <em>78%</em></div>
+          <div class="sk-bar">
+            <div class="sk-fill" data-w="78"></div>
+          </div>
+          <div class="sk-tags"><span class="sk-tag">Timeline</span><span class="sk-tag">Cut Page</span><span
+              class="sk-tag">Fusion</span><span class="sk-tag">Deliver</span><span class="sk-tag">Inspector</span></div>
+        </div>
+
+        <div class="sk-card rv d1" onmousemove="skSpot(this,event)">
+          <div class="sk-spot"></div>
+          <div class="sk-p" style="width:6px;height:6px;top:15%;left:78%;--d:8s;--dl:-1s;--tx:-22px;--ty:-18px"></div>
+          <div class="sk-p" style="width:4px;height:4px;top:70%;left:85%;--d:6s;--dl:-4s;--tx:-15px;--ty:-20px"></div>
+          <div class="sk-icon-box">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="10" cy="14" r="6" fill="var(--accent2)" opacity=".7" />
+              <circle cx="22" cy="14" r="6" fill="var(--accent3)" opacity=".7" />
+              <circle cx="16" cy="22" r="6" fill="var(--accent)" opacity=".7" />
+              <circle cx="16" cy="17" r="4" fill="white" opacity=".25" />
+            </svg>
+          </div>
+          <div class="sk-name">Color Grading</div>
+          <div class="sk-desc">Node-based grading in DaVinci's Color page — primary corrections, LUT application, skin
+            tone matching, and cinematic looks that set the emotional tone.</div>
+          <div class="sk-bar-h">Proficiency <em>68%</em></div>
+          <div class="sk-bar">
+            <div class="sk-fill" data-w="68"></div>
+          </div>
+          <div class="sk-tags"><span class="sk-tag">LUTs</span><span class="sk-tag">Node Tree</span><span
+              class="sk-tag">Scopes</span><span class="sk-tag">Primary</span><span class="sk-tag">Curves</span></div>
+        </div>
+
+        <div class="sk-card rv d2" onmousemove="skSpot(this,event)">
+          <div class="sk-spot"></div>
+          <div class="sk-p" style="width:5px;height:5px;top:22%;left:80%;--d:10s;--dl:-2s;--tx:-20px;--ty:-15px"></div>
+          <div class="sk-p" style="width:4px;height:4px;top:60%;left:90%;--d:7s;--dl:-5s;--tx:-14px;--ty:-22px"></div>
+          <div class="sk-icon-box">
+            <svg viewBox="0 0 32 32" fill="none" stroke="var(--accent)" stroke-linecap="round">
+              <path d="M4 22V10" stroke-width="3" />
+              <path d="M8 26V6" stroke-width="3" />
+              <path d="M12 24V8" stroke-width="3" />
+              <path d="M16 28V4" stroke-width="3" />
+              <path d="M20 23V9" stroke-width="3" />
+              <path d="M24 20V12" stroke-width="3" />
+              <path d="M28 18V14" stroke-width="3" />
+            </svg>
+          </div>
+          <div class="sk-name">Sound Design</div>
+          <div class="sk-desc">Layering music to cuts, syncing SFX frame-perfectly, audio balancing, and building
+            immersive soundscapes that make every visual moment hit harder.</div>
+          <div class="sk-bar-h">Proficiency <em>62%</em></div>
+          <div class="sk-bar">
+            <div class="sk-fill" data-w="62"></div>
+          </div>
+          <div class="sk-tags"><span class="sk-tag">Beat Sync</span><span class="sk-tag">SFX</span><span
+              class="sk-tag">Mixing</span><span class="sk-tag">Levels</span><span class="sk-tag">Atmosphere</span></div>
+        </div>
+      </div>
+
+      <div class="stats-strip rv">
+        <div class="sstat"><span class="sstat-n" data-count="30" data-suffix="+">0</span>
+          <div class="sstat-l">Videos Edited</div>
+        </div>
+        <div class="sstat"><span class="sstat-n">6 Months+</span>
+          <div class="sstat-l">Experience</div>
+        </div>
+        <div class="sstat"><span class="sstat-n">3</span>
+          <div class="sstat-l">Core Skills</div>
+        </div>
+        <div class="sstat"><span class="sstat-n">∞</span>
+          <div class="sstat-l">Passion</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divl"></div>
+
+  <!-- CONTACT -->
+  <section class="sec" id="contact">
+    <div class="wrap">
+      <p class="s-label rv">Get In Touch</p>
+      <h2 class="s-title rv d1">Let's <span>Work</span><br>Together</h2>
+      <div class="contact-grid">
+        <div class="ct-left rv">
+          <p>Looking for a video editor who brings cinematic quality to every project? YouTube content, social reels,
+            short films or brand videos — I'll make every frame count.</p>
+          <div class="social-links">
+            <div class="soc soc-d">
+              <svg viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="48" fill="none" stroke="var(--accent)" stroke-width="5" />
+                <circle cx="50" cy="50" r="16" fill="var(--accent)" />
+                <circle cx="50" cy="50" r="6" fill="var(--bg)" />
+                <line x1="50" y1="2" x2="50" y2="20" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" />
+                <line x1="50" y1="80" x2="50" y2="98" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" />
+                <line x1="2" y1="50" x2="20" y2="50" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" />
+                <line x1="80" y1="50" x2="98" y2="50" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" />
+              </svg>
+              DaVinci Resolve
+            </div>
+            <a class="soc" href="https://drive.google.com/drive/folders/1Xnh4VcXhOnqyZkPkd4qcBBoGEyWzUsIO"
+              target="_blank">
+              <svg viewBox="0 0 87.3 78" style="stroke:none;fill:none;width:18px;height:18px">
+                <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z"
+                  fill="#0066da" />
+                <path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0-1.2 4.5h27.5z"
+                  fill="#00ac47" />
+                <path
+                  d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.5l5.85 11.5z"
+                  fill="#ea4335" />
+                <path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d" />
+                <path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z"
+                  fill="#2684fc" />
+                <path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z"
+                  fill="#ffba00" />
+              </svg>
+              Google Drive
+            </a>
+            <div class="soc">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+              Email Me
+            </div>
+            <div class="soc">
+              <svg viewBox="0 0 24 24">
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
+              Instagram
+            </div>
+          </div>
+        </div>
+        <div class="cf rv d2">
+          <div class="cf-title">Send a Message ✉️</div>
+          <div class="cf-row">
+            <div class="cfg"><label>Name</label><input type="text" placeholder="Your Name"></div>
+            <div class="cfg"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+          </div>
+          <div class="cfg"><label>Project Type</label><input type="text" placeholder="YouTube, Short Film, Reel...">
+          </div>
+          <div class="cfg"><label>Message</label><textarea placeholder="Tell me about your project..."></textarea></div>
+          <button class="cf-sub"
+            onclick="this.textContent='Sent! Talk soon ✓';this.style.background='#22c55e';setTimeout(()=>{this.textContent='Send Message';this.style.background=''},3e3)">Send
+            Message</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="f-logo">✦ VIDEO EDITOR</div>
+    <p class="f-sub">DaVinci Resolve · Color Grading · Sound Design · 30+ Videos</p>
+    <div class="f-links">
+      <a href="#work">Work</a><a href="#clients">Clients</a>
+      <a href="#journey">Journey</a><a href="#skills">Skills</a><a href="#contact">Contact</a>
+    </div>
+    <p class="f-copy">© — Crafted with obsession</p>
+  </footer>
+
+  <script>
+    /* GOOEY CURSOR */
+    (function () {
+      const TAIL = 28, LAG = 0.35, SIZE = 32, EXPLODE = 50;
+      const wrap = document.getElementById('goo-wrap');
+      const dotEl = document.getElementById('goo-dot');
+      const circles = [];
+      for (let i = 0; i < TAIL; i++) {
+        const d = document.createElement('div');
+        d.className = 'goo-circle';
+        wrap.appendChild(d);
+        circles.push(d);
+      }
+      let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+      const history = Array.from({ length: TAIL }, () => ({ x: mouseX, y: mouseY }));
+      window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; }, { passive: true });
+      window.addEventListener('click', () => {
+        for (let i = 0; i < TAIL; i++) {
+          history[i] = {
+            x: history[i].x + (Math.random() * EXPLODE * 2 - EXPLODE),
+            y: history[i].y + (Math.random() * EXPLODE * 2 - EXPLODE)
+          };
+        }
+      });
+      function update() {
+        history.shift();
+        history.push({ x: mouseX, y: mouseY });
+        for (let i = 0; i < TAIL; i++) {
+          const cur = history[i];
+          const next = history[i + 1] || history[TAIL - 1];
+          cur.x += (next.x - cur.x) * LAG;
+          cur.y += (next.y - cur.y) * LAG;
+          const scale = i / TAIL;
+          circles[i].style.transform = `translate(${cur.x - SIZE / 2}px, ${cur.y - SIZE / 2}px) scale(${scale})`;
+        }
+        dotEl.style.left = mouseX + 'px';
+        dotEl.style.top = mouseY + 'px';
+        requestAnimationFrame(update);
+      }
+      update();
+    })();
+
+    /* 3D PARTICLE BG */
+    (function () {
+      const cv = document.getElementById('bg-canvas');
+      const c = cv.getContext('2d');
+      let W, H, pts = [];
+      const rsz = () => { W = cv.width = window.innerWidth; H = cv.height = window.innerHeight };
+      rsz(); window.addEventListener('resize', rsz);
+      class P {
+        constructor() { this.reset() }
+        reset() { this.x = Math.random() * W; this.y = Math.random() * H; this.z = Math.random() * 900 + 100; this.vz = -.3 - Math.random() * .4 }
+        upd() { this.z += this.vz; if (this.z < 1) { this.reset(); this.z = 900 }; const s = 520 / this.z; this.sx = (this.x - W / 2) * s + W / 2; this.sy = (this.y - H / 2) * s + H / 2; this.r = s * 1.2; this.al = (900 - this.z) / 900 }
+        drw() { const col = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim(); c.globalAlpha = this.al * .45; c.fillStyle = col; c.beginPath(); c.arc(this.sx, this.sy, this.r, 0, Math.PI * 2); c.fill() }
+      }
+      for (let i = 0; i < 80; i++) pts.push(new P());
+      function frame() {
+        c.clearRect(0, 0, W, H);
+        const col = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+        pts.forEach((p, i) => {
+          p.upd(); p.drw();
+          pts.slice(i + 1, i + 5).forEach(q => { const d = Math.hypot(p.sx - q.sx, p.sy - q.sy); if (d < 75) { c.globalAlpha = (1 - d / 75) * .06; c.strokeStyle = col; c.lineWidth = .4; c.beginPath(); c.moveTo(p.sx, p.sy); c.lineTo(q.sx, q.sy); c.stroke() } });
+        });
+        c.globalAlpha = 1; requestAnimationFrame(frame);
+      }
+      frame();
+    })();
+
+    /* PARALLAX */
+    window.addEventListener('scroll', () => {
+      const sy = window.scrollY;
+      document.querySelectorAll('.pl').forEach(el => { el.style.transform = `translateY(${sy * (+el.dataset.speed || 0)}px)` });
+    });
+
+    /* SCROLL REVEAL */
+    const rvObs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in') }), { threshold: .07 });
+    document.querySelectorAll('.rv').forEach(el => rvObs.observe(el));
+
+    /* ANIMATED COUNTER */
+    function springCounter(el, target, suffix) {
+      let current = 0, velocity = 0;
+      const stiffness = 0.12, damping = 0.72;
+      function tick() {
+        const force = (target - current) * stiffness;
+        velocity = velocity * damping + force;
+        current += velocity;
+        el.textContent = Math.round(current) + suffix;
+        if (Math.abs(target - current) > 0.5 || Math.abs(velocity) > 0.1) {
+          requestAnimationFrame(tick);
+        } else {
+          el.textContent = target + suffix;
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+    const cntObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.querySelectorAll('[data-count]').forEach(el => {
+          const target = +el.dataset.count;
+          const suffix = el.dataset.suffix || '';
+          springCounter(el, target, suffix);
+        });
+        cntObs.unobserve(e.target);
+      });
+    }, { threshold: .3 });
+    document.querySelectorAll('.cl-stats,.stats-strip').forEach(s => cntObs.observe(s));
+
+    /* SKILL BARS */
+    const barObs = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.querySelectorAll('.sk-fill').forEach((f, i) => setTimeout(() => { f.style.width = f.dataset.w + '%' }, i * 200 + 300));
+    }), { threshold: .3 });
+    document.querySelectorAll('.sk-card').forEach(c => barObs.observe(c));
+
+    /* THEME */
+    function setTheme(t, idx) {
+      document.documentElement.setAttribute('data-theme', t);
+      document.querySelectorAll('.tdot').forEach((b, i) => b.classList.toggle('on', i === idx));
+    }
+
+    /* SPOTLIGHT CARD mouse tracking */
+    function spotMove(el, e) {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const spot = el.querySelector('.spc-spot,.sk-spot');
+      if (spot) {
+        spot.style.setProperty('--sx', x + 'px');
+        spot.style.setProperty('--sy', y + 'px');
+      }
+    }
+    function skSpot(el, e) { spotMove(el, e) }
+
+    document.querySelectorAll('.spc').forEach(el => {
+      el.addEventListener('mousemove', e => spotMove(el, e));
+    });
+
+    /* NAV ACTIVE LINK */
+    const secs = document.querySelectorAll('section[id]');
+    const navAs = document.querySelectorAll('.nav-link');
+    window.addEventListener('scroll', () => {
+      let cur = '';
+      secs.forEach(s => { if (window.scrollY >= s.offsetTop - 200) cur = s.id });
+      navAs.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+    }, { passive: true });
+  </script>
+</body>
+
+</html>
