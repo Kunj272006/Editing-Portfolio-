@@ -14,63 +14,63 @@
       --bg: #05050a;
       --bg2: #0c0c14;
       --bg3: #131320;
-      --glass: rgba(255, 255, 255, 0.04);
-      --glass2: rgba(255, 255, 255, 0.08);
-      --border: rgba(255, 255, 255, 0.07);
-      --border2: rgba(255, 255, 255, 0.13);
+      --glass: rgba(255, 255, 255, .04);
+      --glass2: rgba(255, 255, 255, .08);
+      --border: rgba(255, 255, 255, .07);
+      --border2: rgba(255, 255, 255, .13);
       --accent: #c084fc;
       --accent-r: 192, 132, 252;
       --accent2: #f472b6;
       --accent3: #818cf8;
       --text: #f1f0ff;
-      --muted: rgba(241, 240, 255, 0.38);
-      --muted2: rgba(241, 240, 255, 0.62);
-      --nav-bg: rgba(5, 5, 10, 0.82);
-      --glow: rgba(192, 132, 252, 0.18);
-      --glow2: rgba(192, 132, 252, 0.07);
-      --shadow: rgba(0, 0, 0, 0.65);
+      --muted: rgba(241, 240, 255, .38);
+      --muted2: rgba(241, 240, 255, .62);
+      --nav-bg: rgba(5, 5, 10, .82);
+      --glow: rgba(192, 132, 252, .18);
+      --glow2: rgba(192, 132, 252, .07);
+      --shadow: rgba(0, 0, 0, .65);
     }
 
     [data-theme="light"] {
       --bg: #faf9ff;
       --bg2: #f0eeff;
       --bg3: #e8e5ff;
-      --glass: rgba(0, 0, 0, 0.04);
-      --glass2: rgba(0, 0, 0, 0.07);
-      --border: rgba(0, 0, 0, 0.08);
-      --border2: rgba(0, 0, 0, 0.14);
+      --glass: rgba(0, 0, 0, .04);
+      --glass2: rgba(0, 0, 0, .07);
+      --border: rgba(0, 0, 0, .08);
+      --border2: rgba(0, 0, 0, .14);
       --accent: #7c3aed;
       --accent-r: 124, 58, 237;
       --accent2: #db2777;
       --accent3: #4f46e5;
       --text: #1a1625;
-      --muted: rgba(26, 22, 37, 0.44);
-      --muted2: rgba(26, 22, 37, 0.68);
-      --nav-bg: rgba(250, 249, 255, 0.85);
-      --glow: rgba(124, 58, 237, 0.14);
-      --glow2: rgba(124, 58, 237, 0.05);
-      --shadow: rgba(0, 0, 0, 0.12);
+      --muted: rgba(26, 22, 37, .44);
+      --muted2: rgba(26, 22, 37, .68);
+      --nav-bg: rgba(250, 249, 255, .85);
+      --glow: rgba(124, 58, 237, .14);
+      --glow2: rgba(124, 58, 237, .05);
+      --shadow: rgba(0, 0, 0, .12);
     }
 
     [data-theme="neon"] {
       --bg: #020208;
       --bg2: #06050f;
       --bg3: #0a091a;
-      --glass: rgba(168, 85, 247, 0.05);
-      --glass2: rgba(168, 85, 247, 0.1);
-      --border: rgba(168, 85, 247, 0.14);
-      --border2: rgba(168, 85, 247, 0.24);
+      --glass: rgba(168, 85, 247, .05);
+      --glass2: rgba(168, 85, 247, .1);
+      --border: rgba(168, 85, 247, .14);
+      --border2: rgba(168, 85, 247, .24);
       --accent: #e879f9;
       --accent-r: 232, 121, 249;
       --accent2: #22d3ee;
       --accent3: #a78bfa;
       --text: #fdf4ff;
-      --muted: rgba(253, 244, 255, 0.38);
-      --muted2: rgba(253, 244, 255, 0.65);
-      --nav-bg: rgba(2, 2, 8, 0.88);
-      --glow: rgba(232, 121, 249, 0.22);
-      --glow2: rgba(232, 121, 249, 0.08);
-      --shadow: rgba(0, 0, 0, 0.8);
+      --muted: rgba(253, 244, 255, .38);
+      --muted2: rgba(253, 244, 255, .65);
+      --nav-bg: rgba(2, 2, 8, .88);
+      --glow: rgba(232, 121, 249, .22);
+      --glow2: rgba(232, 121, 249, .08);
+      --shadow: rgba(0, 0, 0, .8);
     }
 
     *,
@@ -116,6 +116,25 @@
       cursor: none !important
     }
 
+    @media(pointer:coarse) {
+      * {
+        cursor: auto !important
+      }
+
+      body {
+        cursor: auto
+      }
+
+      button {
+        cursor: pointer !important
+      }
+
+      a {
+        cursor: pointer !important
+      }
+    }
+
+    /* CURSOR */
     #goo-svg {
       position: fixed;
       width: 0;
@@ -132,7 +151,7 @@
       pointer-events: none;
       z-index: 99999;
       mix-blend-mode: difference;
-      filter: url(#goo);
+      filter: url(#goo)
     }
 
     .goo-circle {
@@ -143,8 +162,8 @@
       height: 32px;
       border-radius: 50%;
       background: #fff;
-      transform-origin: center center;
-      will-change: transform;
+      transform-origin: center;
+      will-change: transform
     }
 
     #goo-dot {
@@ -158,10 +177,18 @@
       pointer-events: none;
       z-index: 100000;
       transform: translate(-50%, -50%);
-      mix-blend-mode: normal;
-      transition: background .3s;
+      transition: background .3s
     }
 
+    @media(pointer:coarse) {
+
+      #goo-wrap,
+      #goo-dot {
+        display: none
+      }
+    }
+
+    /* CANVAS + GRAIN */
     #bg-canvas {
       position: fixed;
       inset: 0;
@@ -182,23 +209,25 @@
       opacity: .35
     }
 
+    /* NAV */
     #nav {
       position: fixed;
-      top: 16px;
+      top: 12px;
       left: 50%;
       transform: translateX(-50%) translateY(-70px);
       z-index: 500;
       display: flex;
       align-items: center;
       gap: 4px;
-      padding: 7px 7px 7px 20px;
+      padding: 6px 6px 6px 16px;
       background: var(--nav-bg);
       border: 1px solid var(--border2);
       border-radius: 100px;
       backdrop-filter: blur(32px) saturate(180%);
-      box-shadow: 0 16px 56px var(--shadow), inset 0 1px 0 rgba(255, 255, 255, .06), 0 0 0 1px rgba(var(--accent-r), .06);
+      box-shadow: 0 16px 56px var(--shadow), inset 0 1px 0 rgba(255, 255, 255, .06);
       animation: navDrop .9s .2s cubic-bezier(.16, 1, .3, 1) forwards;
-      transition: background .4s, border-color .4s, box-shadow .4s;
+      transition: background .4s, border-color .4s;
+      max-width: calc(100vw - 24px)
     }
 
     @keyframes navDrop {
@@ -210,45 +239,45 @@
     .nav-logo {
       font-family: 'Unbounded', sans-serif;
       font-weight: 700;
-      font-size: .82rem;
+      font-size: .78rem;
       letter-spacing: .06em;
       color: var(--accent);
-      margin-right: 6px;
+      margin-right: 4px;
       white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0
+    }
+
+    .nav-logo svg {
+      width: 13px;
+      height: 13px;
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0
     }
 
     .nav-links {
       display: flex;
-      gap: 3px
+      gap: 2px
     }
 
     .nav-link {
       position: relative;
       overflow: hidden;
-      padding: 7px 13px;
+      padding: 6px 11px;
       border-radius: 40px;
-      font-size: .73rem;
+      font-size: .7rem;
       font-weight: 500;
       letter-spacing: .03em;
       color: var(--muted2);
       transition: color .3s;
       border: 1px solid transparent;
-    }
-
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, transparent 0%, rgba(var(--accent-r), .18) 50%, transparent 100%);
-      width: 60%;
-      transform: translateX(-200%);
-      animation: shimmerSlide 3s ease-in-out infinite;
-      animation-play-state: paused;
-      border-radius: 40px;
-    }
-
-    .nav-link:hover::after {
-      animation-play-state: running
+      white-space: nowrap
     }
 
     .nav-link:hover {
@@ -261,16 +290,6 @@
       color: var(--accent)
     }
 
-    @keyframes shimmerSlide {
-      0% {
-        transform: translateX(-200%)
-      }
-
-      100% {
-        transform: translateX(300%)
-      }
-    }
-
     .theme-cluster {
       display: flex;
       align-items: center;
@@ -280,11 +299,12 @@
       background: var(--glass);
       border: 1px solid var(--border);
       border-radius: 50px;
+      flex-shrink: 0
     }
 
     .tdot {
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       border: 2px solid transparent;
       transition: transform .3s, border-color .3s
@@ -310,15 +330,55 @@
       background: conic-gradient(from 0deg, #e879f9, #22d3ee, #a78bfa, #e879f9)
     }
 
+    @media(max-width:640px) {
+      .nav-link {
+        padding: 5px 8px;
+        font-size: .64rem
+      }
+    }
+
+    @media(max-width:480px) {
+      #nav {
+        flex-wrap: wrap;
+        border-radius: 18px;
+        top: 8px;
+        padding: 8px 10px;
+        gap: 0
+      }
+
+      .nav-logo {
+        margin-right: auto
+      }
+
+      .theme-cluster {
+        margin-left: auto
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: center;
+        gap: 0;
+        border-top: 1px solid var(--border);
+        margin-top: 6px;
+        padding-top: 6px
+      }
+
+      .nav-link {
+        padding: 5px 7px;
+        font-size: .6rem
+      }
+    }
+
+    /* HERO */
     #hero {
       position: relative;
       z-index: 2;
-      min-height: 100vh;
+      min-height: 100svh;
       display: grid;
       place-items: center;
-      padding: 120px 24px 80px;
+      padding: 120px 20px 80px;
       overflow: hidden;
-      text-align: center;
+      text-align: center
     }
 
     .orb {
@@ -346,6 +406,27 @@
       }
     }
 
+    .pl {
+      position: absolute;
+      pointer-events: none;
+      opacity: var(--op, .07);
+      will-change: transform;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .pl svg {
+      width: var(--sz, 2.5rem);
+      height: var(--sz, 2.5rem)
+    }
+
+    @media(max-width:600px) {
+      .pl {
+        display: none
+      }
+    }
+
     .hero-badge {
       display: inline-flex;
       align-items: center;
@@ -356,13 +437,13 @@
       background: var(--glass);
       backdrop-filter: blur(12px);
       font-family: 'JetBrains Mono', monospace;
-      font-size: .62rem;
-      letter-spacing: .18em;
+      font-size: .6rem;
+      letter-spacing: .16em;
       color: var(--accent);
       text-transform: uppercase;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
       opacity: 0;
-      animation: ruUp .8s .5s forwards;
+      animation: ruUp .8s .5s forwards
     }
 
     .badge-ring {
@@ -372,7 +453,8 @@
       background: rgba(var(--accent-r), .15);
       display: flex;
       align-items: center;
-      justify-content: center
+      justify-content: center;
+      flex-shrink: 0
     }
 
     .badge-ring::after {
@@ -400,11 +482,11 @@
 
     .hero-eyebrow {
       font-family: 'JetBrains Mono', monospace;
-      font-size: .66rem;
-      letter-spacing: .2em;
+      font-size: .62rem;
+      letter-spacing: .18em;
       color: var(--muted2);
       text-transform: uppercase;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       opacity: 0;
       animation: ruUp .8s .65s forwards
     }
@@ -412,12 +494,12 @@
     .hero-h1 {
       font-family: 'Unbounded', sans-serif;
       font-weight: 900;
-      font-size: clamp(3.5rem, 12vw, 11rem);
+      font-size: clamp(2.6rem, 13vw, 11rem);
       line-height: .88;
       letter-spacing: -.03em;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
       opacity: 0;
-      animation: ruUp .9s .78s forwards;
+      animation: ruUp .9s .78s forwards
     }
 
     .hero-h1 .ol {
@@ -452,12 +534,11 @@
     }
 
     .hero-desc {
-      font-size: clamp(.88rem, 1.8vw, 1.08rem);
-      font-weight: 400;
+      font-size: clamp(.84rem, 2.2vw, 1.08rem);
       color: var(--muted);
-      max-width: 440px;
+      max-width: 420px;
       line-height: 1.8;
-      margin: 0 auto 42px;
+      margin: 0 auto 36px;
       opacity: 0;
       animation: ruUp .9s .9s forwards
     }
@@ -469,7 +550,7 @@
 
     .hero-btns {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
       justify-content: center;
       opacity: 0;
@@ -479,29 +560,29 @@
     .shimmer-btn {
       position: relative;
       overflow: hidden;
-      padding: 13px 32px;
+      padding: 12px 26px;
       border-radius: 100px;
       font-family: 'Space Grotesk', sans-serif;
-      font-size: .83rem;
+      font-size: .82rem;
       font-weight: 700;
       letter-spacing: .04em;
       border: 1px solid rgba(var(--accent-r), .25);
       background: rgba(var(--accent-r), .1);
       color: var(--accent);
-      transition: transform .35s cubic-bezier(.16, 1, .3, 1), box-shadow .35s, background .3s;
+      transition: transform .35s cubic-bezier(.16, 1, .3, 1), box-shadow .35s, background .3s
     }
 
     .shimmer-btn::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(90deg, transparent 0%, rgba(var(--accent-r), .25) 50%, transparent 100%);
+      background: linear-gradient(90deg, transparent, rgba(var(--accent-r), .25), transparent);
       width: 55%;
       transform: translateX(-200%);
-      animation: shimBefore 2.5s linear infinite;
+      animation: shimB 2.5s linear infinite
     }
 
-    @keyframes shimBefore {
+    @keyframes shimB {
       to {
         transform: translateX(350%)
       }
@@ -522,9 +603,16 @@
       box-shadow: 0 14px 40px var(--glow)
     }
 
+    @media(max-width:380px) {
+      .shimmer-btn {
+        padding: 11px 18px;
+        font-size: .76rem
+      }
+    }
+
     .hero-scroll {
       position: absolute;
-      bottom: 30px;
+      bottom: 24px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -537,14 +625,14 @@
 
     .hero-scroll span {
       font-family: 'JetBrains Mono', monospace;
-      font-size: .58rem;
+      font-size: .56rem;
       letter-spacing: .2em;
       color: var(--muted)
     }
 
     .scroll-w {
       width: 1px;
-      height: 44px;
+      height: 38px;
       position: relative;
       overflow: hidden
     }
@@ -579,18 +667,17 @@
       }
     }
 
-    .pl {
-      position: absolute;
-      pointer-events: none;
-      font-size: var(--sz, 2.5rem);
-      opacity: var(--op, .07);
-      will-change: transform
-    }
-
+    /* SECTIONS */
     .sec {
       position: relative;
       z-index: 2;
-      padding: 100px 24px
+      padding: 80px 20px
+    }
+
+    @media(max-width:600px) {
+      .sec {
+        padding: 60px 16px
+      }
     }
 
     .sec-alt {
@@ -602,16 +689,23 @@
       margin: 0 auto
     }
 
+    .divl {
+      height: 1px;
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(to right, transparent, var(--border), transparent)
+    }
+
     .s-label {
       display: flex;
       align-items: center;
       gap: 10px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: .62rem;
+      font-size: .6rem;
       letter-spacing: .24em;
       color: var(--accent);
       text-transform: uppercase;
-      margin-bottom: 12px
+      margin-bottom: 10px
     }
 
     .s-label::before {
@@ -632,10 +726,10 @@
     .s-title {
       font-family: 'Unbounded', sans-serif;
       font-weight: 700;
-      font-size: clamp(2rem, 5vw, 4.2rem);
+      font-size: clamp(1.8rem, 5vw, 4.2rem);
       line-height: .92;
       letter-spacing: -.03em;
-      margin-bottom: 52px
+      margin-bottom: 36px
     }
 
     .s-title span {
@@ -669,12 +763,26 @@
       transition-delay: .4s
     }
 
-    /* ══ VIDEO CARDS ══ */
+    /* VIDEO CARDS */
     .video-row {
       display: flex;
-      gap: 22px;
+      gap: 18px;
       flex-wrap: wrap;
-      justify-content: center;
+      justify-content: center
+    }
+
+    @media(max-width:640px) {
+      .video-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px
+      }
+
+      .spc,
+      .spc.feat {
+        flex: none;
+        width: 100%
+      }
     }
 
     .spc {
@@ -687,17 +795,17 @@
       transition: transform .5s cubic-bezier(.16, 1, .3, 1), box-shadow .5s, border-color .4s;
       will-change: transform;
       display: flex;
-      flex-direction: column;
+      flex-direction: column
     }
 
     .spc:hover {
       transform: translateY(-10px) scale(1.018);
       box-shadow: 0 32px 80px rgba(var(--accent-r), .15), 0 0 0 1px var(--accent);
-      border-color: var(--accent);
+      border-color: var(--accent)
     }
 
     .spc.feat {
-      flex: 0 0 320px
+      flex: 0 0 300px
     }
 
     .spc-spot {
@@ -708,7 +816,7 @@
       opacity: 0;
       transition: opacity .3s;
       background: radial-gradient(350px circle at var(--sx, 50%) var(--sy, 50%), rgba(var(--accent-r), .18), rgba(var(--accent-r), .04), transparent);
-      z-index: 1;
+      z-index: 1
     }
 
     .spc:hover .spc-spot {
@@ -734,13 +842,27 @@
     .spc-thumb {
       position: relative;
       width: 100%;
-      padding-top: 177.78%;
       background: #000;
       overflow: hidden;
       flex-shrink: 0
     }
 
-    /* Cover is always visible — clicking opens Drive */
+    .spc.feat .spc-thumb {
+      padding-top: 56.25%
+    }
+
+    .spc:not(.feat) .spc-thumb {
+      padding-top: 177.78%
+    }
+
+    @media(max-width:640px) {
+
+      .spc.feat .spc-thumb,
+      .spc:not(.feat) .spc-thumb {
+        padding-top: 56.25%
+      }
+    }
+
     .spc-cover {
       position: absolute;
       inset: 0;
@@ -751,7 +873,7 @@
       gap: 14px;
       background: linear-gradient(160deg, #0d0a1a, #0a0814);
       z-index: 4;
-      cursor: pointer !important;
+      cursor: pointer !important
     }
 
     .spc-cover-bg {
@@ -783,15 +905,15 @@
     .spc-play {
       position: relative;
       z-index: 2;
-      width: 56px;
-      height: 56px;
+      width: 54px;
+      height: 54px;
       border-radius: 50%;
       background: var(--accent);
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow: 0 0 0 10px rgba(var(--accent-r), .13);
-      transition: transform .35s, box-shadow .35s;
+      transition: transform .35s, box-shadow .35s
     }
 
     .spc-play svg {
@@ -806,19 +928,8 @@
       box-shadow: 0 0 50px rgba(var(--accent-r), .45)
     }
 
-    /* "Click to Watch" hint */
-    .spc-hover-hint {
-      position: relative;
-      z-index: 2;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .58rem;
-      letter-spacing: .14em;
-      color: rgba(255, 255, 255, .5);
-      text-transform: uppercase;
-    }
-
     .spc-body {
-      padding: 16px 18px 18px;
+      padding: 14px 16px 16px;
       flex: 1;
       display: flex;
       flex-direction: column
@@ -832,11 +943,11 @@
       border-radius: 20px;
       border: 1px solid rgba(var(--accent-r), .25);
       font-family: 'JetBrains Mono', monospace;
-      font-size: .6rem;
+      font-size: .58rem;
       letter-spacing: .1em;
       color: var(--accent);
       background: rgba(var(--accent-r), .06);
-      margin-bottom: 10px;
+      margin-bottom: 9px
     }
 
     .spc-tag svg {
@@ -847,7 +958,7 @@
 
     .spc-name {
       font-family: 'Unbounded', sans-serif;
-      font-size: .85rem;
+      font-size: .82rem;
       font-weight: 600;
       margin-bottom: 5px;
       letter-spacing: -.01em;
@@ -855,7 +966,7 @@
     }
 
     .spc-desc {
-      font-size: .74rem;
+      font-size: .72rem;
       color: var(--muted);
       line-height: 1.6;
       flex: 1
@@ -864,16 +975,10 @@
     .spc-foot {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-end;
       margin-top: 12px;
       padding-top: 10px;
       border-top: 1px solid var(--border)
-    }
-
-    .spc-yr {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .58rem;
-      color: var(--muted)
     }
 
     .spc-btn {
@@ -887,7 +992,7 @@
       font-family: 'Space Grotesk', sans-serif;
       font-size: .7rem;
       font-weight: 700;
-      transition: transform .3s, box-shadow .3s;
+      transition: transform .3s, box-shadow .3s
     }
 
     .spc-btn:hover {
@@ -904,7 +1009,392 @@
       stroke-linecap: round
     }
 
-    /* CLIENT SECTION */
+    /* ── MY WORK SECTION ── */
+    .mw-intro {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 48px
+    }
+
+    .mw-intro-text {
+      max-width: 500px
+    }
+
+    .mw-intro-text p {
+      font-size: .84rem;
+      color: var(--muted);
+      line-height: 1.85;
+      margin-top: 10px
+    }
+
+    .mw-filter-bar {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap
+    }
+
+    .mw-filter {
+      padding: 6px 16px;
+      border-radius: 30px;
+      border: 1px solid var(--border);
+      background: var(--glass);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .58rem;
+      letter-spacing: .12em;
+      color: var(--muted2);
+      text-transform: uppercase;
+      transition: all .3s;
+      backdrop-filter: blur(8px)
+    }
+
+    .mw-filter:hover,
+    .mw-filter.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(var(--accent-r), .07);
+      box-shadow: 0 0 18px var(--glow2)
+    }
+
+    .mw-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px
+    }
+
+    @media(max-width:960px) {
+      .mw-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    @media(max-width:580px) {
+      .mw-grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .mw-card {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      transition: transform .5s cubic-bezier(.16, 1, .3, 1), box-shadow .5s, border-color .4s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mw-card:hover {
+      transform: translateY(-8px) scale(1.012);
+      box-shadow: 0 28px 70px rgba(var(--accent-r), .14), 0 0 0 1px var(--accent);
+      border-color: var(--accent)
+    }
+
+    .mw-card.span2 {
+      grid-column: span 2
+    }
+
+    @media(max-width:960px) {
+      .mw-card.span2 {
+        grid-column: span 1
+      }
+    }
+
+    .mw-thumb {
+      position: relative;
+      width: 100%;
+      padding-top: 58%;
+      background: #000;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .mw-thumb-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: .55;
+      filter: saturate(.65);
+      transition: opacity .45s, filter .45s, transform .5s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .mw-card:hover .mw-thumb-bg {
+      opacity: .82;
+      filter: saturate(1.15);
+      transform: scale(1.04)
+    }
+
+    .mw-thumb-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(5, 5, 10, .92) 0%, rgba(5, 5, 10, .3) 50%, transparent 100%);
+      z-index: 1;
+    }
+
+    .mw-thumb-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: rgba(5, 5, 10, .72);
+      border: 1px solid var(--border2);
+      backdrop-filter: blur(10px);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .54rem;
+      letter-spacing: .12em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .mw-thumb-play {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity .35s;
+    }
+
+    .mw-card:hover .mw-thumb-play {
+      opacity: 1
+    }
+
+    .mw-play-ring {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 12px rgba(var(--accent-r), .14), 0 0 50px rgba(var(--accent-r), .4);
+      transition: transform .35s;
+    }
+
+    .mw-card:hover .mw-play-ring {
+      transform: scale(1.1)
+    }
+
+    .mw-play-ring svg {
+      fill: #000;
+      margin-left: 4px;
+      width: 18px;
+      height: 18px
+    }
+
+    .mw-body {
+      padding: 18px 18px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column
+    }
+
+    .mw-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px
+    }
+
+    .mw-cat {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .56rem;
+      letter-spacing: .14em;
+      color: var(--accent);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .mw-cat::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0
+    }
+
+    .mw-dur {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .56rem;
+      color: var(--muted);
+      letter-spacing: .08em
+    }
+
+    .mw-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: .9rem;
+      font-weight: 600;
+      letter-spacing: -.01em;
+      line-height: 1.25;
+      margin-bottom: 7px
+    }
+
+    .mw-desc {
+      font-size: .72rem;
+      color: var(--muted);
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 16px
+    }
+
+    .mw-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 14px
+    }
+
+    .mw-tag {
+      padding: 3px 9px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .54rem;
+      color: var(--muted);
+      background: var(--glass);
+      transition: all .3s
+    }
+
+    .mw-card:hover .mw-tag {
+      border-color: rgba(var(--accent-r), .3);
+      color: var(--accent)
+    }
+
+    .mw-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 12px;
+      border-top: 1px solid var(--border)
+    }
+
+    .mw-tool {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .68rem;
+      color: var(--muted)
+    }
+
+    .mw-tool-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0
+    }
+
+    .mw-open {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: var(--accent);
+      color: #000;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .7rem;
+      font-weight: 700;
+      transition: transform .3s, box-shadow .3s;
+    }
+
+    .mw-open:hover {
+      transform: translateX(3px);
+      box-shadow: 0 6px 20px var(--glow)
+    }
+
+    .mw-open svg {
+      width: 11px;
+      height: 11px;
+      stroke: #000;
+      fill: none;
+      stroke-width: 2.4;
+      stroke-linecap: round
+    }
+
+    /* Featured wide card tweaks */
+    .mw-card.featured .mw-thumb {
+      padding-top: 46%
+    }
+
+    .mw-card.featured .mw-title {
+      font-size: 1.1rem
+    }
+
+    .mw-card.featured .mw-desc {
+      max-width: 480px
+    }
+
+    /* Marquee strip */
+    .mw-marquee-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+      margin: 40px 0 0;
+      background: var(--glass);
+    }
+
+    .mw-marquee {
+      display: flex;
+      gap: 40px;
+      animation: marqueeScroll 22s linear infinite;
+      width: max-content
+    }
+
+    .mw-marquee-wrap:hover .mw-marquee {
+      animation-play-state: paused
+    }
+
+    @keyframes marqueeScroll {
+      0% {
+        transform: translateX(0)
+      }
+
+      100% {
+        transform: translateX(-50%)
+      }
+    }
+
+    .mw-marq-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .62rem;
+      letter-spacing: .14em;
+      color: var(--muted);
+      text-transform: uppercase;
+      white-space: nowrap
+    }
+
+    .mw-marq-item span {
+      color: var(--accent)
+    }
+
+    .mw-marq-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--border2);
+      flex-shrink: 0
+    }
+
+    /* CLIENT CARD */
     .client-card {
       background: var(--glass);
       border: 1px solid var(--border);
@@ -915,7 +1405,7 @@
       grid-template-columns: 1fr 1fr;
       transition: border-color .4s, box-shadow .4s;
       text-decoration: none;
-      color: inherit;
+      color: inherit
     }
 
     @media(max-width:768px) {
@@ -930,7 +1420,7 @@
     }
 
     .cl-left {
-      padding: 52px 48px;
+      padding: 44px 40px;
       display: flex;
       flex-direction: column;
       justify-content: center
@@ -938,17 +1428,17 @@
 
     @media(max-width:768px) {
       .cl-left {
-        padding: 36px 28px
+        padding: 28px 22px
       }
     }
 
     .cl-eye {
       font-family: 'JetBrains Mono', monospace;
-      font-size: .62rem;
-      letter-spacing: .2em;
+      font-size: .6rem;
+      letter-spacing: .18em;
       color: var(--accent);
       text-transform: uppercase;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
       gap: 8px
@@ -956,11 +1446,11 @@
 
     .cl-h2 {
       font-family: 'Unbounded', sans-serif;
-      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-size: clamp(1.5rem, 4vw, 3rem);
       font-weight: 700;
       line-height: .93;
       letter-spacing: -.03em;
-      margin-bottom: 18px
+      margin-bottom: 14px
     }
 
     .cl-h2 span {
@@ -968,28 +1458,28 @@
     }
 
     .cl-desc {
-      font-size: .86rem;
+      font-size: .83rem;
       color: var(--muted);
       line-height: 1.8;
       max-width: 360px;
-      margin-bottom: 28px
+      margin-bottom: 22px
     }
 
     .cl-cta {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 13px 26px;
+      padding: 11px 22px;
       border-radius: 12px;
       background: var(--accent);
       color: #000;
       font-family: 'Space Grotesk', sans-serif;
-      font-size: .84rem;
+      font-size: .82rem;
       font-weight: 700;
       width: fit-content;
       position: relative;
       overflow: hidden;
-      transition: transform .35s, box-shadow .35s;
+      transition: transform .35s, box-shadow .35s
     }
 
     .cl-cta::before {
@@ -999,7 +1489,7 @@
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .28), transparent);
       width: 55%;
       transform: translateX(-200%);
-      animation: shimBefore 2.6s linear infinite
+      animation: shimB 2.6s linear infinite
     }
 
     .cl-cta:hover {
@@ -1008,8 +1498,8 @@
     }
 
     .cl-cta svg {
-      width: 16px;
-      height: 16px;
+      width: 15px;
+      height: 15px;
       stroke: #000;
       fill: none;
       stroke-width: 2;
@@ -1018,12 +1508,12 @@
     }
 
     .cl-right {
-      padding: 32px;
+      padding: 26px;
       background: var(--bg3);
       border-left: 1px solid var(--border);
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
       justify-content: center
     }
 
@@ -1031,21 +1521,21 @@
       .cl-right {
         border-left: none;
         border-top: 1px solid var(--border);
-        padding: 28px
+        padding: 22px
       }
     }
 
     .cl-stats {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px
+      gap: 10px
     }
 
     .cl-stat {
       background: var(--glass);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 20px 16px;
+      padding: 16px 12px;
       transition: border-color .3s, transform .3s;
       text-align: center
     }
@@ -1057,16 +1547,16 @@
 
     .cl-num {
       font-family: 'Unbounded', sans-serif;
-      font-size: 2rem;
+      font-size: 1.7rem;
       font-weight: 700;
       color: var(--accent);
       line-height: 1;
-      margin-bottom: 5px;
-      display: block;
+      margin-bottom: 4px;
+      display: block
     }
 
     .cl-lbl {
-      font-size: .72rem;
+      font-size: .68rem;
       color: var(--muted);
       letter-spacing: .05em
     }
@@ -1075,11 +1565,11 @@
       background: var(--glass2);
       border: 1px solid var(--border2);
       border-radius: 14px;
-      padding: 16px;
+      padding: 14px;
       display: flex;
       align-items: center;
       gap: 12px;
-      transition: border-color .3s, background .3s;
+      transition: border-color .3s
     }
 
     .drive-prev:hover {
@@ -1087,8 +1577,8 @@
     }
 
     .drive-icon {
-      width: 42px;
-      height: 42px;
+      width: 40px;
+      height: 40px;
       border-radius: 10px;
       background: var(--accent);
       display: flex;
@@ -1098,29 +1588,31 @@
     }
 
     .drive-icon svg {
-      width: 22px;
-      height: 22px
+      width: 20px;
+      height: 20px
     }
 
     .drive-info {
-      flex: 1
+      flex: 1;
+      min-width: 0
     }
 
     .drive-title {
-      font-size: .83rem;
+      font-size: .82rem;
       font-weight: 600;
       margin-bottom: 2px
     }
 
     .drive-sub {
-      font-size: .7rem;
+      font-size: .68rem;
       color: var(--muted)
     }
 
     .drive-arr {
       color: var(--accent);
       font-size: 1.1rem;
-      transition: transform .3s
+      transition: transform .3s;
+      flex-shrink: 0
     }
 
     .drive-prev:hover .drive-arr {
@@ -1130,18 +1622,17 @@
     /* JOURNEY */
     .journey-grid {
       display: grid;
-      grid-template-columns: 1fr 60px 1fr;
+      grid-template-columns: 1fr 56px 1fr;
       border: 1px solid var(--border);
-      border-radius: 22px;
+      border-radius: 20px;
       overflow: hidden;
       background: var(--glass);
-      backdrop-filter: blur(16px);
+      backdrop-filter: blur(16px)
     }
 
     @media(max-width:700px) {
       .journey-grid {
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr auto 1fr
+        grid-template-columns: 1fr
       }
     }
 
@@ -1150,14 +1641,14 @@
     }
 
     .j-head {
-      padding: 11px 18px;
+      padding: 10px 16px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: .62rem;
-      letter-spacing: .18em;
+      font-size: .58rem;
+      letter-spacing: .14em;
       text-transform: uppercase;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 8px
     }
 
     .j-head.th {
@@ -1171,8 +1662,8 @@
     }
 
     .j-head svg {
-      width: 13px;
-      height: 13px;
+      width: 12px;
+      height: 12px;
       stroke: currentColor;
       fill: none;
       stroke-width: 2
@@ -1189,12 +1680,12 @@
       position: absolute;
       inset: 0;
       width: 100%;
-      height: 100%;
+      height: 100%
     }
 
     .j-desc {
-      padding: 16px 18px;
-      font-size: .78rem;
+      padding: 14px 16px;
+      font-size: .76rem;
       color: var(--muted);
       line-height: 1.7;
       border-top: 1px solid var(--border)
@@ -1228,13 +1719,13 @@
     .j-arr {
       font-family: 'Unbounded', sans-serif;
       font-weight: 700;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       color: var(--accent)
     }
 
     .j-pl {
       width: 2px;
-      height: 32px;
+      height: 28px;
       background: linear-gradient(var(--accent), transparent);
       animation: jpl 2s infinite
     }
@@ -1253,7 +1744,7 @@
 
     @media(max-width:700px) {
       .j-pl {
-        width: 32px;
+        width: 28px;
         height: 2px;
         background: linear-gradient(to right, var(--accent), transparent)
       }
@@ -1263,11 +1754,17 @@
     .sk-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-bottom: 48px
+      gap: 16px;
+      margin-bottom: 36px
     }
 
-    @media(max-width:768px) {
+    @media(max-width:900px) {
+      .sk-grid {
+        grid-template-columns: 1fr 1fr
+      }
+    }
+
+    @media(max-width:560px) {
       .sk-grid {
         grid-template-columns: 1fr
       }
@@ -1277,11 +1774,11 @@
       background: var(--glass);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 32px 26px;
+      padding: 26px 20px;
       backdrop-filter: blur(16px);
       position: relative;
       overflow: hidden;
-      transition: transform .5s cubic-bezier(.16, 1, .3, 1), box-shadow .5s, border-color .4s;
+      transition: transform .5s cubic-bezier(.16, 1, .3, 1), box-shadow .5s, border-color .4s
     }
 
     .sk-spot {
@@ -1311,17 +1808,17 @@
     }
 
     .sk-icon-box {
-      width: 50px;
-      height: 50px;
+      width: 46px;
+      height: 46px;
       border-radius: 12px;
       border: 1px solid var(--border);
       background: var(--glass2);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
       transition: border-color .3s, background .3s;
-      overflow: hidden;
+      overflow: hidden
     }
 
     .sk-card:hover .sk-icon-box {
@@ -1336,23 +1833,23 @@
 
     .sk-name {
       font-family: 'Unbounded', sans-serif;
-      font-size: .9rem;
+      font-size: .86rem;
       font-weight: 600;
-      margin-bottom: 7px
+      margin-bottom: 6px
     }
 
     .sk-desc {
-      font-size: .76rem;
+      font-size: .73rem;
       color: var(--muted);
       line-height: 1.65;
-      margin-bottom: 18px
+      margin-bottom: 14px
     }
 
     .sk-bar-h {
       display: flex;
       justify-content: space-between;
       font-family: 'JetBrains Mono', monospace;
-      font-size: .59rem;
+      font-size: .57rem;
       color: var(--muted);
       margin-bottom: 7px
     }
@@ -1367,7 +1864,7 @@
       background: var(--border);
       border-radius: 2px;
       overflow: hidden;
-      margin-bottom: 14px
+      margin-bottom: 12px
     }
 
     .sk-fill {
@@ -1381,15 +1878,15 @@
     .sk-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 5px
+      gap: 4px
     }
 
     .sk-tag {
-      padding: 2px 9px;
+      padding: 2px 8px;
       border-radius: 20px;
       border: 1px solid var(--border);
       font-family: 'JetBrains Mono', monospace;
-      font-size: .58rem;
+      font-size: .56rem;
       color: var(--muted);
       background: var(--glass);
       transition: all .3s
@@ -1427,6 +1924,7 @@
       }
     }
 
+    /* STATS */
     .stats-strip {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -1441,10 +1939,22 @@
       .stats-strip {
         grid-template-columns: repeat(2, 1fr)
       }
+
+      .sstat:nth-child(2) {
+        border-right: none
+      }
+
+      .sstat:nth-child(3) {
+        border-top: 1px solid var(--border)
+      }
+
+      .sstat:nth-child(4) {
+        border-top: 1px solid var(--border)
+      }
     }
 
     .sstat {
-      padding: 26px 18px;
+      padding: 20px 12px;
       text-align: center;
       border-right: 1px solid var(--border);
       transition: background .3s
@@ -1460,7 +1970,7 @@
 
     .sstat-n {
       font-family: 'Unbounded', sans-serif;
-      font-size: 2.4rem;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
       font-weight: 700;
       color: var(--accent);
       line-height: 1;
@@ -1469,16 +1979,16 @@
     }
 
     .sstat-l {
-      font-size: .72rem;
+      font-size: .68rem;
       color: var(--muted);
-      letter-spacing: .05em
+      letter-spacing: .04em
     }
 
     /* CONTACT */
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 40px;
+      gap: 32px;
       align-items: start
     }
 
@@ -1489,36 +1999,36 @@
     }
 
     .ct-left p {
-      font-size: .86rem;
+      font-size: .83rem;
       color: var(--muted);
       line-height: 1.82;
       max-width: 400px;
-      margin-bottom: 30px
+      margin-bottom: 24px
     }
 
     .social-links {
       display: flex;
       flex-wrap: wrap;
-      gap: 9px
+      gap: 8px
     }
 
     .soc {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 9px 16px;
+      padding: 8px 13px;
       border-radius: 12px;
       border: 1px solid var(--border);
       background: var(--glass);
-      font-size: .78rem;
+      font-size: .75rem;
       color: var(--muted);
       backdrop-filter: blur(8px);
-      transition: all .3s;
+      transition: all .3s
     }
 
     .soc svg {
-      width: 17px;
-      height: 17px;
+      width: 15px;
+      height: 15px;
       stroke: var(--accent);
       fill: none;
       stroke-width: 1.7;
@@ -1543,21 +2053,35 @@
       background: var(--glass);
       border: 1px solid var(--border);
       border-radius: 22px;
-      padding: 34px 30px;
+      padding: 28px 24px;
       backdrop-filter: blur(16px)
     }
 
     .cf-title {
       font-family: 'Unbounded', sans-serif;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 600;
-      margin-bottom: 22px
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .cf-title svg {
+      width: 17px;
+      height: 17px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0
     }
 
     .cf-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px
+      gap: 10px
     }
 
     @media(max-width:460px) {
@@ -1567,14 +2091,14 @@
     }
 
     .cfg {
-      margin-bottom: 16px
+      margin-bottom: 13px
     }
 
     .cfg label {
       display: block;
       font-family: 'JetBrains Mono', monospace;
-      font-size: .59rem;
-      letter-spacing: .15em;
+      font-size: .57rem;
+      letter-spacing: .14em;
       color: var(--muted);
       text-transform: uppercase;
       margin-bottom: 6px
@@ -1583,13 +2107,13 @@
     .cfg input,
     .cfg textarea {
       width: 100%;
-      padding: 11px 14px;
+      padding: 10px 13px;
       background: var(--glass2);
       border: 1px solid var(--border);
       border-radius: 9px;
       color: var(--text);
       font-family: 'Space Grotesk', sans-serif;
-      font-size: .85rem;
+      font-size: .84rem;
       outline: none;
       resize: none;
       transition: border-color .3s, box-shadow .3s
@@ -1602,7 +2126,7 @@
     }
 
     .cfg textarea {
-      height: 100px
+      height: 90px
     }
 
     .cf-sub {
@@ -1612,13 +2136,35 @@
       color: #000;
       border-radius: 10px;
       font-family: 'Space Grotesk', sans-serif;
-      font-size: .85rem;
+      font-size: .84rem;
       font-weight: 700;
       letter-spacing: .04em;
       transition: all .3s;
       margin-top: 4px;
       position: relative;
       overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px
+    }
+
+    .cf-sub svg {
+      width: 15px;
+      height: 15px;
+      stroke: #000;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1
+    }
+
+    .cf-sub span {
+      position: relative;
+      z-index: 1
     }
 
     .cf-sub::before {
@@ -1628,7 +2174,7 @@
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .25), transparent);
       width: 55%;
       transform: translateX(-200%);
-      animation: shimBefore 2.8s linear infinite
+      animation: shimB 2.8s linear infinite
     }
 
     .cf-sub:hover {
@@ -1636,46 +2182,62 @@
       box-shadow: 0 10px 30px var(--glow)
     }
 
-    .divl {
-      height: 1px;
-      position: relative;
-      z-index: 2;
-      background: linear-gradient(to right, transparent, var(--border), transparent)
-    }
-
+    /* FOOTER */
     footer {
       position: relative;
       z-index: 2;
       border-top: 1px solid var(--border);
-      padding: 50px 24px;
+      padding: 44px 20px;
       text-align: center
     }
 
     .f-logo {
       font-family: 'Unbounded', sans-serif;
-      font-size: 2.2rem;
+      font-size: clamp(1.3rem, 4vw, 2.2rem);
       font-weight: 700;
       color: var(--accent);
       margin-bottom: 8px;
-      letter-spacing: -.03em
+      letter-spacing: -.03em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px
+    }
+
+    .f-logo svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0
     }
 
     .f-sub {
-      font-size: .76rem;
+      font-size: .72rem;
       color: var(--muted);
-      margin-bottom: 28px
+      margin-bottom: 22px;
+      line-height: 1.7
+    }
+
+    @media(max-width:480px) {
+      .f-sub {
+        font-size: .65rem
+      }
     }
 
     .f-links {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 22px;
-      margin-bottom: 22px
+      gap: 14px;
+      margin-bottom: 18px
     }
 
     .f-links a {
-      font-size: .76rem;
+      font-size: .72rem;
       color: var(--muted);
       transition: color .3s
     }
@@ -1686,7 +2248,7 @@
 
     .f-copy {
       font-family: 'JetBrains Mono', monospace;
-      font-size: .59rem;
+      font-size: .56rem;
       color: var(--muted);
       letter-spacing: .1em
     }
@@ -1704,16 +2266,28 @@
       </filter>
     </defs>
   </svg>
-
   <div id="goo-wrap"></div>
   <div id="goo-dot"></div>
-
   <canvas id="bg-canvas"></canvas>
 
+  <!-- ── NAV ── -->
   <nav id="nav">
-    <div class="nav-logo">✦ VE</div>
+    <div class="nav-logo">
+      <svg viewBox="0 0 24 24">
+        <rect x="2" y="2" width="20" height="20" rx="2" />
+        <line x1="7" y1="2" x2="7" y2="22" />
+        <line x1="17" y1="2" x2="17" y2="22" />
+        <line x1="2" y1="12" x2="22" y2="12" />
+        <line x1="2" y1="7" x2="7" y2="7" />
+        <line x1="2" y1="17" x2="7" y2="17" />
+        <line x1="17" y1="7" x2="22" y2="7" />
+        <line x1="17" y1="17" x2="22" y2="17" />
+      </svg>
+      VE
+    </div>
     <div class="nav-links">
-      <a href="#work" class="nav-link">Work</a>
+      <a href="#mywork" class="nav-link">My Work</a>
+      <a href="#work" class="nav-link">Featured</a>
       <a href="#clients" class="nav-link">Clients</a>
       <a href="#journey" class="nav-link">Journey</a>
       <a href="#skills" class="nav-link">Skills</a>
@@ -1726,37 +2300,74 @@
     </div>
   </nav>
 
-  <!-- HERO -->
+  <!-- ── HERO ── -->
   <section id="hero">
     <div class="orb"
-      style="width:650px;height:650px;background:var(--accent);opacity:.05;top:-180px;right:-130px;--d:22s"></div>
+      style="width:550px;height:550px;background:var(--accent);opacity:.05;top:-160px;right:-120px;--d:22s"></div>
     <div class="orb"
-      style="width:420px;height:420px;background:var(--accent2);opacity:.06;bottom:-100px;left:-80px;--d:16s;--dl:-6s">
+      style="width:360px;height:360px;background:var(--accent2);opacity:.06;bottom:-80px;left:-70px;--d:16s;--dl:-6s">
     </div>
     <div class="orb"
-      style="width:280px;height:280px;background:var(--accent3);opacity:.05;top:40%;left:20%;--d:13s;--dl:-9s"></div>
-    <div class="pl" data-speed=".04" style="top:15%;left:7%;--sz:3.5rem;--op:.09">🎬</div>
-    <div class="pl" data-speed=".07" style="top:24%;right:9%;--sz:2rem;--op:.07">✂️</div>
-    <div class="pl" data-speed=".03" style="bottom:22%;left:11%;--sz:2rem;--op:.07">🎞️</div>
-    <div class="pl" data-speed=".06" style="bottom:28%;right:7%;--sz:2.6rem;--op:.08">🎧</div>
-    <div class="pl" data-speed=".05" style="top:58%;left:4%;--sz:1.8rem;--op:.06">🎨</div>
+      style="width:240px;height:240px;background:var(--accent3);opacity:.05;top:40%;left:20%;--d:13s;--dl:-9s"></div>
+    <div class="pl" data-speed=".04" style="top:15%;left:7%;--sz:3rem;--op:.09">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1-.3 2.1.3 2.4 1.3Z" />
+        <path d="m6.2 5.3 3.1 3.9" />
+        <path d="m12.4 3.4 3.1 3.9" />
+        <path d="M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" />
+      </svg>
+    </div>
+    <div class="pl" data-speed=".07" style="top:24%;right:9%;--sz:1.9rem;--op:.07">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent2)" stroke-width="1.4" stroke-linecap="round">
+        <circle cx="6" cy="6" r="3" />
+        <circle cx="6" cy="18" r="3" />
+        <line x1="20" y1="4" x2="8.12" y2="15.88" />
+        <line x1="14.47" y1="14.48" x2="20" y2="20" />
+        <line x1="8.12" y1="8.12" x2="12" y2="12" />
+      </svg>
+    </div>
+    <div class="pl" data-speed=".03" style="bottom:22%;left:11%;--sz:1.9rem;--op:.07">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent3)" stroke-width="1.4" stroke-linecap="round"
+        stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="2" />
+        <line x1="7" y1="2" x2="7" y2="22" />
+        <line x1="17" y1="2" x2="17" y2="22" />
+        <line x1="2" y1="12" x2="22" y2="12" />
+        <line x1="2" y1="7" x2="7" y2="7" />
+        <line x1="2" y1="17" x2="7" y2="17" />
+        <line x1="17" y1="7" x2="22" y2="7" />
+        <line x1="17" y1="17" x2="22" y2="17" />
+      </svg>
+    </div>
+    <div class="pl" data-speed=".06" style="bottom:28%;right:7%;--sz:2.3rem;--op:.08">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round">
+        <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+        <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z" />
+        <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
+      </svg>
+    </div>
+    <div class="pl" data-speed=".05" style="top:58%;left:4%;--sz:1.7rem;--op:.06">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent2)" stroke-width="1.4" stroke-linecap="round">
+        <circle cx="13.5" cy="6.5" r=".5" fill="var(--accent2)" />
+        <circle cx="17.5" cy="10.5" r=".5" fill="var(--accent2)" />
+        <circle cx="8.5" cy="7.5" r=".5" fill="var(--accent2)" />
+        <circle cx="6.5" cy="12.5" r=".5" fill="var(--accent2)" />
+        <path
+          d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
+      </svg>
+    </div>
 
     <div style="position:relative;z-index:1">
       <div class="hero-badge">
         <div class="badge-ring"></div>Open for Projects
       </div>
       <p class="hero-eyebrow">Professional Video Editor · DaVinci Resolve</p>
-      <h1 class="hero-h1">
-        CUT.<br>
-        <span class="ol">GRADE.</span><br>
-        <span class="ac">DELIVER.</span>
-      </h1>
-      <p class="hero-desc">
-        <strong>30+ videos edited.</strong> Cinematic color grading, precise sound design &amp; storytelling that makes
-        viewers stop scrolling — all crafted in DaVinci Resolve.
-      </p>
+      <h1 class="hero-h1">CUT.<br><span class="ol">GRADE.</span><br><span class="ac">DELIVER.</span></h1>
+      <p class="hero-desc"><strong>30+ videos edited.</strong> Cinematic color grading, precise sound design &amp;
+        storytelling that makes viewers stop scrolling — all crafted in DaVinci Resolve.</p>
       <div class="hero-btns">
-        <a href="#work" class="shimmer-btn fill">View Best Work</a>
+        <a href="#mywork" class="shimmer-btn fill">View My Work</a>
         <a href="#contact" class="shimmer-btn">Hire Me →</a>
       </div>
     </div>
@@ -1767,21 +2378,305 @@
 
   <div class="divl"></div>
 
-  <!-- BEST WORK — clicking cover opens Drive -->
+  <!-- ── MY WORK ── -->
+  <section class="sec sec-alt" id="mywork">
+    <div class="wrap">
+      <div class="mw-intro rv">
+        <div class="mw-intro-text">
+          <p class="s-label" style="margin-bottom:8px">Portfolio</p>
+          <h2 class="s-title" style="margin-bottom:0">My <span>Work</span></h2>
+          <p>A curated showcase of every style I've mastered — from cinematic brand films to fast-paced reels, each
+            piece pushing the craft further.</p>
+        </div>
+        <div class="mw-filter-bar rv d1">
+          <button class="mw-filter active" onclick="filterWork('all',this)">All</button>
+          <button class="mw-filter" onclick="filterWork('cinematic',this)">Cinematic</button>
+          <button class="mw-filter" onclick="filterWork('personal',this)">Personal</button>
+          <button class="mw-filter" onclick="filterWork('client',this)">Client</button>
+        </div>
+      </div>
+
+      <div class="mw-grid" id="mw-grid">
+
+        <!-- Card 1 — Featured / Cinematic -->
+        <div class="mw-card featured span2 rv d1" data-cat="cinematic" onmousemove="spotMove(this,event)">
+          <div class="mw-thumb">
+            <div class="mw-thumb-bg"
+              style="background-image:url('https://drive.google.com/thumbnail?id=1sL9VJRYZBTjw00IUAK7mYcmlHH0j32F9&sz=w1000')">
+            </div>
+            <div class="mw-thumb-overlay"></div>
+            <div class="mw-thumb-badge">
+              <svg viewBox="0 0 24 24" style="width:8px;height:8px;fill:var(--accent)">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              </svg>
+              Featured
+            </div>
+            <div class="mw-thumb-play"
+              onclick="window.open('https://drive.google.com/file/d/1sL9VJRYZBTjw00IUAK7mYcmlHH0j32F9/view','_blank')">
+              <div class="mw-play-ring"><svg viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg></div>
+            </div>
+          </div>
+          <div class="mw-body">
+            <div class="mw-meta">
+              <div class="mw-cat">Cinematic</div>
+              <div class="mw-dur">Best Work</div>
+            </div>
+            <div class="mw-title">Signature Cinematic Edit</div>
+            <div class="mw-desc">Peak craft in full display — professional node-based color grading, precision beat-sync
+              cuts and layered sound design. Built start-to-finish in DaVinci Resolve. This is the standard every future
+              edit must meet.</div>
+            <div class="mw-tags">
+              <span class="mw-tag">DaVinci Resolve</span>
+              <span class="mw-tag">Color Grade</span>
+              <span class="mw-tag">Beat Sync</span>
+              <span class="mw-tag">Sound Design</span>
+              <span class="mw-tag">Cinematic</span>
+            </div>
+            <div class="mw-footer">
+              <div class="mw-tool">
+                <div class="mw-tool-dot"></div>DaVinci Resolve
+              </div>
+              <a class="mw-open" href="https://drive.google.com/file/d/1sL9VJRYZBTjw00IUAK7mYcmlHH0j32F9/view"
+                target="_blank">
+                Watch<svg viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 — Personal -->
+        <div class="mw-card rv d2" data-cat="personal" onmousemove="spotMove(this,event)">
+          <div class="mw-thumb">
+            <div class="mw-thumb-bg"
+              style="background-image:url('https://drive.google.com/thumbnail?id=1I2wN5_lKClasCv6PXmoEsizwdGOu933q&sz=w600')">
+            </div>
+            <div class="mw-thumb-overlay"></div>
+            <div class="mw-thumb-badge">Personal</div>
+            <div class="mw-thumb-play"
+              onclick="window.open('https://drive.google.com/file/d/1I2wN5_lKClasCv6PXmoEsizwdGOu933q/view?usp=sharing','_blank')">
+              <div class="mw-play-ring"><svg viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg></div>
+            </div>
+          </div>
+          <div class="mw-body">
+            <div class="mw-meta">
+              <div class="mw-cat">Personal</div>
+              <div class="mw-dur">Creative</div>
+            </div>
+            <div class="mw-title">Personal Creative Edit</div>
+            <div class="mw-desc">Self-directed storytelling — mood-driven color grades, layered audio and cinematic
+              pacing from concept to final cut.</div>
+            <div class="mw-tags">
+              <span class="mw-tag">Storytelling</span>
+              <span class="mw-tag">Color Grade</span>
+              <span class="mw-tag">Mood</span>
+            </div>
+            <div class="mw-footer">
+              <div class="mw-tool">
+                <div class="mw-tool-dot"></div>DaVinci Resolve
+              </div>
+              <a class="mw-open"
+                href="https://drive.google.com/file/d/1I2wN5_lKClasCv6PXmoEsizwdGOu933q/view?usp=sharing"
+                target="_blank">
+                Watch<svg viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 — First Edit -->
+        <div class="mw-card rv d3" data-cat="personal" onmousemove="spotMove(this,event)">
+          <div class="mw-thumb">
+            <div class="mw-thumb-bg"
+              style="background-image:url('https://drive.google.com/thumbnail?id=1FtW_ZKRnTyXho_AHm-tnbgCAHmlzFUq9&sz=w600')">
+            </div>
+            <div class="mw-thumb-overlay"></div>
+            <div class="mw-thumb-badge">Origin</div>
+            <div class="mw-thumb-play"
+              onclick="window.open('https://drive.google.com/file/d/1FtW_ZKRnTyXho_AHm-tnbgCAHmlzFUq9/view','_blank')">
+              <div class="mw-play-ring"><svg viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg></div>
+            </div>
+          </div>
+          <div class="mw-body">
+            <div class="mw-meta">
+              <div class="mw-cat">Personal</div>
+              <div class="mw-dur">First Edit</div>
+            </div>
+            <div class="mw-title">Where It All Started</div>
+            <div class="mw-desc">The very first video. Raw passion before technique — the spark that started everything.
+            </div>
+            <div class="mw-tags">
+              <span class="mw-tag">First Edit</span>
+              <span class="mw-tag">Raw</span>
+              <span class="mw-tag">Origin</span>
+            </div>
+            <div class="mw-footer">
+              <div class="mw-tool">
+                <div class="mw-tool-dot"></div>DaVinci Resolve
+              </div>
+              <a class="mw-open" href="https://drive.google.com/file/d/1FtW_ZKRnTyXho_AHm-tnbgCAHmlzFUq9/view"
+                target="_blank">
+                Watch<svg viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 — Client work placeholder -->
+        <div class="mw-card rv d1" data-cat="client" onmousemove="spotMove(this,event)">
+          <div class="mw-thumb" style="background:var(--bg3)">
+            <div class="mw-thumb-bg" style="background:linear-gradient(135deg,#0d0a1a,#150f2a)"></div>
+            <div class="mw-thumb-overlay"></div>
+            <div class="mw-thumb-badge">Client</div>
+            <div class="mw-thumb-play"
+              onclick="window.open('https://drive.google.com/drive/folders/13cY2lRt1t-e1xMDHjpO4_e0MmaS6haTs?usp=drive_link','_blank')">
+              <div class="mw-play-ring" style="background:var(--accent2)"><svg viewBox="0 0 24 24" style="fill:#fff">
+                  <path d="M8 5v14l11-7z" />
+                </svg></div>
+            </div>
+            <div
+              style="position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;pointer-events:none">
+              <svg viewBox="0 0 87.3 78" style="width:56px;height:56px;opacity:.25">
+                <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z"
+                  fill="#0066da" />
+                <path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0-1.2 4.5h27.5z"
+                  fill="#00ac47" />
+                <path
+                  d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.5l5.85 11.5z"
+                  fill="#ea4335" />
+                <path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d" />
+                <path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z"
+                  fill="#2684fc" />
+                <path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z"
+                  fill="#ffba00" />
+              </svg>
+            </div>
+          </div>
+          <div class="mw-body">
+            <div class="mw-meta">
+              <div class="mw-cat">Client</div>
+              <div class="mw-dur">Drive Folder</div>
+            </div>
+            <div class="mw-title">Client Work Archive</div>
+            <div class="mw-desc">All client deliverables — branded content, beat-synced cuts, dynamic transitions. Every
+              project tailored to the client's unique vision.</div>
+            <div class="mw-tags">
+              <span class="mw-tag">Branded</span>
+              <span class="mw-tag">Beat Sync</span>
+              <span class="mw-tag">Transitions</span>
+            </div>
+            <div class="mw-footer">
+              <div class="mw-tool">
+                <div class="mw-tool-dot"></div>Google Drive
+              </div>
+              <a class="mw-open"
+                href="https://drive.google.com/drive/folders/13cY2lRt1t-e1xMDHjpO4_e0MmaS6haTs?usp=drive_link"
+                target="_blank">
+                Browse<svg viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div><!-- /mw-grid -->
+
+      <!-- Marquee -->
+      <div class="mw-marquee-wrap rv">
+        <div class="mw-marquee" id="mw-marq">
+          <div class="mw-marq-item"><span>DaVinci Resolve</span>
+            <div class="mw-marq-dot"></div>
+          </div>
+          <div class="mw-marq-item"><span>Color Grading</span>
+            <div class="mw-marq-dot"></div>
+          </div>
+          <div class="mw-marq-item"><span>Sound Design</span>
+            <div class="mw-marq-dot"></div>
+          </div>
+          <div class="mw-marq-item"><span>Beat Sync</span>
+            <div class="mw-marq-dot"></div>
+          </div>
+          <div class="mw-marq-item"><span>30+ Videos</span>
+            <div class="mw-marq-dot"></div>
+          </div>
+          <div class="mw-marq-item"><span>Cinematic Edits</span>
+            <div class="mw-marq-dot"></div>
+          </div>
+          <div class="mw-marq-item"><span>LUT Grading</span>
+            <div class="mw-marq-dot"></div>
+          </div>
+          <div class="mw-marq-item"><span>Node Trees</span>
+            <div class="mw-marq-dot"></div>
+          </div>
+          <div class="mw-marq-item"><span>Fusion VFX</span>
+            <div class="mw-marq-dot"></div>
+          </div>
+          <div class="mw-marq-item"><span>Social Reels</span>
+            <div class="mw-marq-dot"></div>
+          </div>
+          <!-- duplicate for infinite loop -->
+          <div class="mw-marq-item"><span>DaVinci Resolve</span>
+            <div class="mw-marq-dot"></div>
+          </div>
+          <div class="mw-marq-item"><span>Color Grading</span>
+            <div class="mw-marq-dot"></div>
+          </div>
+          <div class="mw-marq-item"><span>Sound Design</span>
+            <div class="mw-marq-dot"></div>
+          </div>
+          <div class="mw-marq-item"><span>Beat Sync</span>
+            <div class="mw-marq-dot"></div>
+          </div>
+          <div class="mw-marq-item"><span>30+ Videos</span>
+            <div class="mw-marq-dot"></div>
+          </div>
+          <div class="mw-marq-item"><span>Cinematic Edits</span>
+            <div class="mw-marq-dot"></div>
+          </div>
+          <div class="mw-marq-item"><span>LUT Grading</span>
+            <div class="mw-marq-dot"></div>
+          </div>
+          <div class="mw-marq-item"><span>Node Trees</span>
+            <div class="mw-marq-dot"></div>
+          </div>
+          <div class="mw-marq-item"><span>Fusion VFX</span>
+            <div class="mw-marq-dot"></div>
+          </div>
+          <div class="mw-marq-item"><span>Social Reels</span>
+            <div class="mw-marq-dot"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divl"></div>
+
+  <!-- ── BEST WORK ── -->
   <section class="sec" id="work">
     <div class="wrap">
       <p class="s-label rv">Featured Work</p>
       <h2 class="s-title rv d1">Best <span>Videos</span></h2>
-
       <div class="video-row">
 
-        <!-- BEST VIDEO -->
         <div class="spc feat rv d1" onmousemove="spotMove(this,event)">
           <div class="spc-spot"></div>
           <div class="spc-inner"></div>
           <div class="spc-content">
             <div class="spc-thumb">
-              <!-- Clicking anywhere on the cover opens the Drive link -->
               <div class="spc-cover"
                 onclick="window.open('https://drive.google.com/file/d/1sL9VJRYZBTjw00IUAK7mYcmlHH0j32F9/view','_blank')">
                 <div class="spc-cover-bg"
@@ -1800,18 +2695,15 @@
               <div class="spc-name">Signature Cinematic Edit</div>
               <div class="spc-desc">Peak craft — professional color grading, precision beat-sync cuts &amp; layered
                 sound design built entirely in DaVinci Resolve.</div>
-              <div class="spc-foot">
-                <span class="spc-yr"></span>
-                <a class="spc-btn" href="https://drive.google.com/file/d/1sL9VJRYZBTjw00IUAK7mYcmlHH0j32F9/view"
+              <div class="spc-foot"><a class="spc-btn"
+                  href="https://drive.google.com/file/d/1sL9VJRYZBTjw00IUAK7mYcmlHH0j32F9/view"
                   target="_blank">Drive<svg viewBox="0 0 24 24">
                     <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg></a>
-              </div>
+                  </svg></a></div>
             </div>
           </div>
         </div>
 
-        <!-- PERSONAL PROJECT -->
         <div class="spc rv d2" onmousemove="spotMove(this,event)">
           <div class="spc-spot"></div>
           <div class="spc-inner"></div>
@@ -1825,7 +2717,6 @@
                 <div class="spc-play"><svg viewBox="0 0 24 24">
                     <path d="M8 5v14l11-7z" />
                   </svg></div>
-                <span class="spc-hover-hint"></span>
               </div>
             </div>
             <div class="spc-body">
@@ -1833,25 +2724,22 @@
               <div class="spc-name">Personal Creative Edit</div>
               <div class="spc-desc">Self-directed storytelling — mood-driven color grades, layered audio &amp; cinematic
                 pacing from concept to final cut.</div>
-              <div class="spc-foot">
-                <a class="spc-btn"
-                  href="https://drive.google.com/file/d/1I2wN5_lKClasCv6PXmoEsizwdGOu933q/view?usp=drive_link"
+              <div class="spc-foot"><a class="spc-btn"
+                  href="https://drive.google.com/file/d/1I2wN5_lKClasCv6PXmoEsizwdGOu933q/view?usp=sharing"
                   target="_blank">Drive<svg viewBox="0 0 24 24">
                     <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg></a>
-              </div>
+                  </svg></a></div>
             </div>
           </div>
         </div>
 
-        <!-- FIRST VIDEO -->
         <div class="spc rv d3" onmousemove="spotMove(this,event)">
           <div class="spc-spot"></div>
           <div class="spc-inner"></div>
           <div class="spc-content">
             <div class="spc-thumb">
               <div class="spc-cover"
-                onclick="window.open('https://drive.google.com/file/d/1FtW_ZKRnTyXho_AHm-tnbgCAHmlzFUq9/view','_blank')">
+                onclick="window.open('https://drive.google.com/file/d/1FtW_ZKRnTyXho_AHm-tnbgCAHmlzFUq9/view?usp=sharing','_blank')">
                 <div class="spc-cover-bg"
                   style="background-image:url('https://drive.google.com/thumbnail?id=1FtW_ZKRnTyXho_AHm-tnbgCAHmlzFUq9&sz=w600')">
                 </div>
@@ -1865,14 +2753,11 @@
               <div class="spc-name">Where It All Started</div>
               <div class="spc-desc">The very first video. Raw passion before technique — the spark that started
                 everything.</div>
-              <div class="spc-foot">
-                <span class="spc-yr">
-                </span>
-                <a class="spc-btn" href="https://drive.google.com/file/d/1FtW_ZKRnTyXho_AHm-tnbgCAHmlzFUq9/view"
+              <div class="spc-foot"><a class="spc-btn"
+                  href="https://drive.google.com/file/d/1FtW_ZKRnTyXho_AHm-tnbgCAHmlzFUq9/view"
                   target="_blank">Drive<svg viewBox="0 0 24 24">
                     <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg></a>
-              </div>
+                  </svg></a></div>
             </div>
           </div>
         </div>
@@ -1883,17 +2768,16 @@
 
   <div class="divl"></div>
 
-  <!-- CLIENT WORK -->
+  <!-- ── CLIENT WORK ── -->
   <section class="sec sec-alt" id="clients">
     <div class="wrap">
       <p class="s-label rv">Professional Work</p>
       <h2 class="s-title rv d1">Client <span>Work</span></h2>
-
       <a href="https://drive.google.com/drive/folders/13cY2lRt1t-e1xMDHjpO4_e0MmaS6haTs?usp=drive_link" target="_blank"
-        class="client-card rv d2" style="display:grid;">
+        class="client-card rv d2" style="display:grid">
         <div class="cl-left">
           <div class="cl-eye">
-            <svg viewBox="0 0 87.3 78" style="width:14px;height:14px;flex-shrink:0">
+            <svg viewBox="0 0 87.3 78" style="width:13px;height:13px;flex-shrink:0">
               <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z"
                 fill="#0066da" />
               <path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0-1.2 4.5h27.5z"
@@ -1912,7 +2796,7 @@
             dynamic transitions tailored to each unique vision. Every frame intentional, every second impactful.</p>
           <div class="cl-cta"
             onclick="event.stopPropagation();window.open('https://drive.google.com/drive/folders/13cY2lRt1t-e1xMDHjpO4_e0MmaS6haTs?usp=drive_link','_blank')">
-            <svg viewBox="0 0 87.3 78" style="width:18px;height:18px">
+            <svg viewBox="0 0 87.3 78" style="width:15px;height:15px;stroke:none;fill:none">
               <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z"
                 fill="#0066da" />
               <path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0-1.2 4.5h27.5z"
@@ -1938,7 +2822,7 @@
             <div class="cl-stat"><span class="cl-num" data-count="100" data-suffix="%">0%</span>
               <div class="cl-lbl">Satisfaction Rate</div>
             </div>
-            <div class="cl-stat"><span class="cl-num" data-count="6" data-suffix=" Months+">0+</span>
+            <div class="cl-stat"><span class="cl-num" data-count="6" data-suffix=" Mo+">0</span>
               <div class="cl-lbl">Experience</div>
             </div>
             <div class="cl-stat"><span class="cl-num" data-count="3" data-suffix="">0</span>
@@ -1947,7 +2831,7 @@
           </div>
           <div class="drive-prev">
             <div class="drive-icon">
-              <svg viewBox="0 0 87.3 78" style="width:22px;height:22px">
+              <svg viewBox="0 0 87.3 78" style="width:20px;height:20px">
                 <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z"
                   fill="#0066da" />
                 <path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0-1.2 4.5h27.5z"
@@ -1975,15 +2859,14 @@
 
   <div class="divl"></div>
 
-  <!-- JOURNEY — click play opens Drive -->
+  <!-- ── JOURNEY ── -->
   <section class="sec" id="journey">
     <div class="wrap">
       <p class="s-label rv">The Evolution</p>
       <h2 class="s-title rv d1">Then <span>→</span> Now</h2>
-      <p class="rv d2" style="color:var(--muted);max-width:480px;font-size:.86rem;line-height:1.8;margin-bottom:44px">
+      <p class="rv d2" style="color:var(--muted);max-width:480px;font-size:.83rem;line-height:1.8;margin-bottom:32px">
         One screen. Two videos. Watch the transformation from raw first cut to polished cinematic work — side by side.
       </p>
-
       <div class="journey-grid rv d2">
         <div class="j-panel">
           <div class="j-head th"><svg viewBox="0 0 24 24">
@@ -2010,7 +2893,7 @@
           <div class="j-pl" style="background:linear-gradient(transparent,var(--accent))"></div>
         </div>
         <div class="j-panel">
-          <div class="j-head nw"><svg viewBox="0 0 24 24">
+          <div class="j-head nw"><svg viewBox="0 0 24 24" fill="currentColor">
               <polygon
                 points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
             </svg>Best Work — Right Now</div>
@@ -2034,19 +2917,19 @@
 
   <div class="divl"></div>
 
-  <!-- SKILLS -->
+  <!-- ── SKILLS ── -->
   <section class="sec sec-alt" id="skills">
     <div class="wrap">
       <p class="s-label rv">Capabilities</p>
       <h2 class="s-title rv d1">My <span>Skills</span></h2>
-
       <div class="sk-grid">
+
         <div class="sk-card rv" onmousemove="skSpot(this,event)">
           <div class="sk-spot"></div>
           <div class="sk-p" style="width:5px;height:5px;top:18%;left:82%;--d:7s;--dl:0s;--tx:-18px;--ty:-22px"></div>
           <div class="sk-p" style="width:3px;height:3px;top:65%;left:88%;--d:9s;--dl:-3s;--tx:-12px;--ty:-16px"></div>
           <div class="sk-icon-box">
-            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="var(--accent)">
+            <svg viewBox="0 0 100 100" fill="var(--accent)">
               <circle cx="50" cy="50" r="48" fill="none" stroke="var(--accent)" stroke-width="4" />
               <circle cx="50" cy="50" r="32" fill="none" stroke="var(--accent)" stroke-width="3" opacity=".5" />
               <circle cx="50" cy="50" r="16" fill="var(--accent)" opacity=".9" />
@@ -2073,7 +2956,7 @@
           <div class="sk-p" style="width:6px;height:6px;top:15%;left:78%;--d:8s;--dl:-1s;--tx:-22px;--ty:-18px"></div>
           <div class="sk-p" style="width:4px;height:4px;top:70%;left:85%;--d:6s;--dl:-4s;--tx:-15px;--ty:-20px"></div>
           <div class="sk-icon-box">
-            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 32 32" fill="none">
               <circle cx="10" cy="14" r="6" fill="var(--accent2)" opacity=".7" />
               <circle cx="22" cy="14" r="6" fill="var(--accent3)" opacity=".7" />
               <circle cx="16" cy="22" r="6" fill="var(--accent)" opacity=".7" />
@@ -2116,13 +2999,13 @@
           <div class="sk-tags"><span class="sk-tag">Beat Sync</span><span class="sk-tag">SFX</span><span
               class="sk-tag">Mixing</span><span class="sk-tag">Levels</span><span class="sk-tag">Atmosphere</span></div>
         </div>
-      </div>
 
+      </div>
       <div class="stats-strip rv">
         <div class="sstat"><span class="sstat-n" data-count="30" data-suffix="+">0</span>
           <div class="sstat-l">Videos Edited</div>
         </div>
-        <div class="sstat"><span class="sstat-n">6 Months+</span>
+        <div class="sstat"><span class="sstat-n">6 Mo+</span>
           <div class="sstat-l">Experience</div>
         </div>
         <div class="sstat"><span class="sstat-n">3</span>
@@ -2137,7 +3020,7 @@
 
   <div class="divl"></div>
 
-  <!-- CONTACT -->
+  <!-- ── CONTACT ── -->
   <section class="sec" id="contact">
     <div class="wrap">
       <p class="s-label rv">Get In Touch</p>
@@ -2147,76 +3030,84 @@
           <p>Looking for a video editor who brings cinematic quality to every project? YouTube content, social reels,
             short films or brand videos — I'll make every frame count.</p>
           <div class="social-links">
-            <div class="soc soc-d">
-              <svg viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="48" fill="none" stroke="var(--accent)" stroke-width="5" />
-                <circle cx="50" cy="50" r="16" fill="var(--accent)" />
-                <circle cx="50" cy="50" r="6" fill="var(--bg)" />
-                <line x1="50" y1="2" x2="50" y2="20" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" />
-                <line x1="50" y1="80" x2="50" y2="98" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" />
-                <line x1="2" y1="50" x2="20" y2="50" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" />
-                <line x1="80" y1="50" x2="98" y2="50" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" />
-              </svg>
-              DaVinci Resolve
+            <div>
+              <a class="soc" href="https://drive.google.com/drive/folders/1Xnh4VcXhOnqyZkPkd4qcBBoGEyWzUsIO"
+                target="_blank">
+                <svg viewBox="0 0 87.3 78" style="stroke:none;fill:none;width:15px;height:15px">
+                  <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z"
+                    fill="#0066da" />
+                  <path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0-1.2 4.5h27.5z"
+                    fill="#00ac47" />
+                  <path
+                    d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.5l5.85 11.5z"
+                    fill="#ea4335" />
+                  <path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z"
+                    fill="#00832d" />
+                  <path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z"
+                    fill="#2684fc" />
+                  <path
+                    d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z"
+                    fill="#ffba00" />
+                </svg>
+                Google Drive
+              </a>
             </div>
-            <a class="soc" href="https://drive.google.com/drive/folders/1Xnh4VcXhOnqyZkPkd4qcBBoGEyWzUsIO"
-              target="_blank">
-              <svg viewBox="0 0 87.3 78" style="stroke:none;fill:none;width:18px;height:18px">
-                <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z"
-                  fill="#0066da" />
-                <path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0-1.2 4.5h27.5z"
-                  fill="#00ac47" />
-                <path
-                  d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.5l5.85 11.5z"
-                  fill="#ea4335" />
-                <path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d" />
-                <path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z"
-                  fill="#2684fc" />
-                <path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z"
-                  fill="#ffba00" />
-              </svg>
-              Google Drive
-            </a>
-            <div class="soc">
-              <svg viewBox="0 0 24 24">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                <polyline points="22,6 12,13 2,6" />
-              </svg>
-              Email Me
-            </div>
-            <div class="soc">
+            <a class="soc" href="https://www.instagram.com/kunj_creatives/" target="_blank">
               <svg viewBox="0 0 24 24">
                 <rect x="2" y="2" width="20" height="20" rx="5" />
                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
                 <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
               </svg>
               Instagram
-            </div>
+            </a>
           </div>
         </div>
         <div class="cf rv d2">
-          <div class="cf-title">Send a Message ✉️</div>
+          <div class="cf-title">
+            Send a Message
+            <svg viewBox="0 0 24 24">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+          </div>
           <div class="cf-row">
             <div class="cfg"><label>Name</label><input type="text" placeholder="Your Name"></div>
             <div class="cfg"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+            <div class="cfg"><label>Number</label><input type="tel" placeholder="your phone number"></div>
           </div>
           <div class="cfg"><label>Project Type</label><input type="text" placeholder="YouTube, Short Film, Reel...">
           </div>
           <div class="cfg"><label>Message</label><textarea placeholder="Tell me about your project..."></textarea></div>
-          <button class="cf-sub"
-            onclick="this.textContent='Sent! Talk soon ✓';this.style.background='#22c55e';setTimeout(()=>{this.textContent='Send Message';this.style.background=''},3e3)">Send
-            Message</button>
+          <button class="cf-sub" id="send-btn" onclick="handleSend(this)">
+            <svg viewBox="0 0 24 24" id="send-icon">
+              <line x1="22" y1="2" x2="11" y2="13" />
+              <polygon points="22 2 15 22 11 13 2 9 22 2" />
+            </svg>
+            <span id="send-label">Send Message</span>
+          </button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- ── FOOTER ── -->
   <footer>
-    <div class="f-logo">✦ VIDEO EDITOR</div>
+    <div class="f-logo">
+      <svg viewBox="0 0 24 24">
+        <rect x="2" y="2" width="20" height="20" rx="2" />
+        <line x1="7" y1="2" x2="7" y2="22" />
+        <line x1="17" y1="2" x2="17" y2="22" />
+        <line x1="2" y1="12" x2="22" y2="12" />
+        <line x1="2" y1="7" x2="7" y2="7" />
+        <line x1="2" y1="17" x2="7" y2="17" />
+        <line x1="17" y1="7" x2="22" y2="7" />
+        <line x1="17" y1="17" x2="22" y2="17" />
+      </svg>
+      VIDEO EDITOR
+    </div>
     <p class="f-sub">DaVinci Resolve · Color Grading · Sound Design · 30+ Videos</p>
     <div class="f-links">
-      <a href="#work">Work</a><a href="#clients">Clients</a>
+      <a href="#mywork">My Work</a><a href="#work">Featured</a><a href="#clients">Clients</a>
       <a href="#journey">Journey</a><a href="#skills">Skills</a><a href="#contact">Contact</a>
     </div>
     <p class="f-copy">© — Crafted with obsession</p>
@@ -2224,150 +3115,95 @@
 
   <script>
     /* GOOEY CURSOR */
-    (function () {
-      const TAIL = 28, LAG = 0.35, SIZE = 32, EXPLODE = 50;
-      const wrap = document.getElementById('goo-wrap');
-      const dotEl = document.getElementById('goo-dot');
-      const circles = [];
-      for (let i = 0; i < TAIL; i++) {
-        const d = document.createElement('div');
-        d.className = 'goo-circle';
-        wrap.appendChild(d);
-        circles.push(d);
-      }
-      let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-      const history = Array.from({ length: TAIL }, () => ({ x: mouseX, y: mouseY }));
-      window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; }, { passive: true });
-      window.addEventListener('click', () => {
-        for (let i = 0; i < TAIL; i++) {
-          history[i] = {
-            x: history[i].x + (Math.random() * EXPLODE * 2 - EXPLODE),
-            y: history[i].y + (Math.random() * EXPLODE * 2 - EXPLODE)
-          };
+    if (matchMedia('(pointer:fine)').matches) {
+      (function () {
+        const TAIL = 28, LAG = .35, SIZE = 32, EXPLODE = 50;
+        const wrap = document.getElementById('goo-wrap'), dot = document.getElementById('goo-dot'), cs = [];
+        for (let i = 0; i < TAIL; i++) { const d = document.createElement('div'); d.className = 'goo-circle'; wrap.appendChild(d); cs.push(d) }
+        let mx = innerWidth / 2, my = innerHeight / 2;
+        const h = Array.from({ length: TAIL }, () => ({ x: mx, y: my }));
+        addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY }, { passive: true });
+        addEventListener('click', () => { for (let i = 0; i < TAIL; i++) { h[i] = { x: h[i].x + (Math.random() * EXPLODE * 2 - EXPLODE), y: h[i].y + (Math.random() * EXPLODE * 2 - EXPLODE) } } });
+        function upd() {
+          h.shift(); h.push({ x: mx, y: my });
+          for (let i = 0; i < TAIL; i++) { const c = h[i], n = h[i + 1] || h[TAIL - 1]; c.x += (n.x - c.x) * LAG; c.y += (n.y - c.y) * LAG; cs[i].style.transform = `translate(${c.x - SIZE / 2}px,${c.y - SIZE / 2}px) scale(${i / TAIL})` }
+          dot.style.left = mx + 'px'; dot.style.top = my + 'px'; requestAnimationFrame(upd);
         }
-      });
-      function update() {
-        history.shift();
-        history.push({ x: mouseX, y: mouseY });
-        for (let i = 0; i < TAIL; i++) {
-          const cur = history[i];
-          const next = history[i + 1] || history[TAIL - 1];
-          cur.x += (next.x - cur.x) * LAG;
-          cur.y += (next.y - cur.y) * LAG;
-          const scale = i / TAIL;
-          circles[i].style.transform = `translate(${cur.x - SIZE / 2}px, ${cur.y - SIZE / 2}px) scale(${scale})`;
-        }
-        dotEl.style.left = mouseX + 'px';
-        dotEl.style.top = mouseY + 'px';
-        requestAnimationFrame(update);
-      }
-      update();
-    })();
+        upd();
+      })();
+    }
 
-    /* 3D PARTICLE BG */
+    /* PARTICLES */
     (function () {
-      const cv = document.getElementById('bg-canvas');
-      const c = cv.getContext('2d');
+      const cv = document.getElementById('bg-canvas'), ctx = cv.getContext('2d');
       let W, H, pts = [];
-      const rsz = () => { W = cv.width = window.innerWidth; H = cv.height = window.innerHeight };
-      rsz(); window.addEventListener('resize', rsz);
+      const rsz = () => { W = cv.width = innerWidth; H = cv.height = innerHeight };
+      rsz(); addEventListener('resize', rsz);
       class P {
         constructor() { this.reset() }
         reset() { this.x = Math.random() * W; this.y = Math.random() * H; this.z = Math.random() * 900 + 100; this.vz = -.3 - Math.random() * .4 }
-        upd() { this.z += this.vz; if (this.z < 1) { this.reset(); this.z = 900 }; const s = 520 / this.z; this.sx = (this.x - W / 2) * s + W / 2; this.sy = (this.y - H / 2) * s + H / 2; this.r = s * 1.2; this.al = (900 - this.z) / 900 }
-        drw() { const col = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim(); c.globalAlpha = this.al * .45; c.fillStyle = col; c.beginPath(); c.arc(this.sx, this.sy, this.r, 0, Math.PI * 2); c.fill() }
+        upd() { this.z += this.vz; if (this.z < 1) { this.reset(); this.z = 900 } const s = 520 / this.z; this.sx = (this.x - W / 2) * s + W / 2; this.sy = (this.y - H / 2) * s + H / 2; this.r = s * 1.2; this.al = (900 - this.z) / 900 }
+        drw() { const col = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim(); ctx.globalAlpha = this.al * .45; ctx.fillStyle = col; ctx.beginPath(); ctx.arc(this.sx, this.sy, this.r, 0, Math.PI * 2); ctx.fill() }
       }
       for (let i = 0; i < 80; i++) pts.push(new P());
       function frame() {
-        c.clearRect(0, 0, W, H);
-        const col = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
-        pts.forEach((p, i) => {
-          p.upd(); p.drw();
-          pts.slice(i + 1, i + 5).forEach(q => { const d = Math.hypot(p.sx - q.sx, p.sy - q.sy); if (d < 75) { c.globalAlpha = (1 - d / 75) * .06; c.strokeStyle = col; c.lineWidth = .4; c.beginPath(); c.moveTo(p.sx, p.sy); c.lineTo(q.sx, q.sy); c.stroke() } });
-        });
-        c.globalAlpha = 1; requestAnimationFrame(frame);
+        ctx.clearRect(0, 0, W, H); const col = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+        pts.forEach((p, i) => { p.upd(); p.drw(); pts.slice(i + 1, i + 5).forEach(q => { const d = Math.hypot(p.sx - q.sx, p.sy - q.sy); if (d < 75) { ctx.globalAlpha = (1 - d / 75) * .06; ctx.strokeStyle = col; ctx.lineWidth = .4; ctx.beginPath(); ctx.moveTo(p.sx, p.sy); ctx.lineTo(q.sx, q.sy); ctx.stroke() } }) });
+        ctx.globalAlpha = 1; requestAnimationFrame(frame);
       }
       frame();
     })();
 
     /* PARALLAX */
-    window.addEventListener('scroll', () => {
-      const sy = window.scrollY;
-      document.querySelectorAll('.pl').forEach(el => { el.style.transform = `translateY(${sy * (+el.dataset.speed || 0)}px)` });
-    });
+    addEventListener('scroll', () => { const sy = scrollY; document.querySelectorAll('.pl').forEach(el => { el.style.transform = `translateY(${sy * (+el.dataset.speed || 0)}px)` }) }, { passive: true });
 
     /* SCROLL REVEAL */
     const rvObs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in') }), { threshold: .07 });
     document.querySelectorAll('.rv').forEach(el => rvObs.observe(el));
 
-    /* ANIMATED COUNTER */
+    /* COUNTER */
     function springCounter(el, target, suffix) {
-      let current = 0, velocity = 0;
-      const stiffness = 0.12, damping = 0.72;
-      function tick() {
-        const force = (target - current) * stiffness;
-        velocity = velocity * damping + force;
-        current += velocity;
-        el.textContent = Math.round(current) + suffix;
-        if (Math.abs(target - current) > 0.5 || Math.abs(velocity) > 0.1) {
-          requestAnimationFrame(tick);
-        } else {
-          el.textContent = target + suffix;
-        }
-      }
+      let cur = 0, vel = 0;
+      function tick() { vel = (vel * .72) + ((target - cur) * .12); cur += vel; el.textContent = Math.round(cur) + suffix; if (Math.abs(target - cur) > .5 || Math.abs(vel) > .1) requestAnimationFrame(tick); else el.textContent = target + suffix; }
       requestAnimationFrame(tick);
     }
-    const cntObs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        e.target.querySelectorAll('[data-count]').forEach(el => {
-          const target = +el.dataset.count;
-          const suffix = el.dataset.suffix || '';
-          springCounter(el, target, suffix);
-        });
-        cntObs.unobserve(e.target);
-      });
-    }, { threshold: .3 });
+    const cntObs = new IntersectionObserver(entries => { entries.forEach(e => { if (!e.isIntersecting) return; e.target.querySelectorAll('[data-count]').forEach(el => springCounter(el, +el.dataset.count, el.dataset.suffix || '')); cntObs.unobserve(e.target) }) }, { threshold: .3 });
     document.querySelectorAll('.cl-stats,.stats-strip').forEach(s => cntObs.observe(s));
 
     /* SKILL BARS */
-    const barObs = new IntersectionObserver(es => es.forEach(e => {
-      if (!e.isIntersecting) return;
-      e.target.querySelectorAll('.sk-fill').forEach((f, i) => setTimeout(() => { f.style.width = f.dataset.w + '%' }, i * 200 + 300));
-    }), { threshold: .3 });
+    const barObs = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; e.target.querySelectorAll('.sk-fill').forEach((f, i) => setTimeout(() => { f.style.width = f.dataset.w + '%' }, i * 200 + 300)) }), { threshold: .3 });
     document.querySelectorAll('.sk-card').forEach(c => barObs.observe(c));
 
     /* THEME */
-    function setTheme(t, idx) {
-      document.documentElement.setAttribute('data-theme', t);
-      document.querySelectorAll('.tdot').forEach((b, i) => b.classList.toggle('on', i === idx));
-    }
+    function setTheme(t, idx) { document.documentElement.setAttribute('data-theme', t); document.querySelectorAll('.tdot').forEach((b, i) => b.classList.toggle('on', i === idx)); }
 
-    /* SPOTLIGHT CARD mouse tracking */
-    function spotMove(el, e) {
-      const rect = el.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const spot = el.querySelector('.spc-spot,.sk-spot');
-      if (spot) {
-        spot.style.setProperty('--sx', x + 'px');
-        spot.style.setProperty('--sy', y + 'px');
-      }
-    }
+    /* SPOTLIGHT */
+    function spotMove(el, e) { const r = el.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top; const s = el.querySelector('.spc-spot,.sk-spot'); if (s) { s.style.setProperty('--sx', x + 'px'); s.style.setProperty('--sy', y + 'px') } }
     function skSpot(el, e) { spotMove(el, e) }
+    document.querySelectorAll('.spc').forEach(el => el.addEventListener('mousemove', e => spotMove(el, e)));
 
-    document.querySelectorAll('.spc').forEach(el => {
-      el.addEventListener('mousemove', e => spotMove(el, e));
-    });
+    /* NAV ACTIVE */
+    const secs = document.querySelectorAll('section[id]'), navAs = document.querySelectorAll('.nav-link');
+    addEventListener('scroll', () => { let cur = ''; secs.forEach(s => { if (scrollY >= s.offsetTop - 200) cur = s.id }); navAs.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur)) }, { passive: true });
 
-    /* NAV ACTIVE LINK */
-    const secs = document.querySelectorAll('section[id]');
-    const navAs = document.querySelectorAll('.nav-link');
-    window.addEventListener('scroll', () => {
-      let cur = '';
-      secs.forEach(s => { if (window.scrollY >= s.offsetTop - 200) cur = s.id });
-      navAs.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
-    }, { passive: true });
+    /* MY WORK FILTER */
+    function filterWork(cat, btn) {
+      document.querySelectorAll('.mw-filter').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('#mw-grid .mw-card').forEach(card => {
+        const match = cat === 'all' || card.dataset.cat === cat;
+        card.style.transition = 'opacity .4s, transform .4s';
+        if (match) { card.style.opacity = '1'; card.style.transform = ''; card.style.pointerEvents = ''; }
+        else { card.style.opacity = '0.15'; card.style.transform = 'scale(0.97)'; card.style.pointerEvents = 'none'; }
+      });
+    }
+
+    /* SEND */
+    function handleSend(btn) {
+      const label = document.getElementById('send-label'), icon = document.getElementById('send-icon');
+      label.textContent = 'Sent! Talk soon'; icon.innerHTML = '<polyline points="20 6 9 17 4 12"/>'; btn.style.background = '#22c55e';
+      setTimeout(() => { label.textContent = 'Send Message'; icon.innerHTML = '<line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>'; btn.style.background = '' }, 3000);
+    }
   </script>
 </body>
 
